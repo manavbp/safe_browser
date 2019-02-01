@@ -1,6 +1,6 @@
 import { createActions } from 'redux-actions';
 import { createAliasedAction } from 'electron-redux';
-import { callIPC } from 'extensions/safe/ffi/ipc';
+// import { callIPC } from 'extensions/safe/ffi/ipc';
 import AUTH_CONSTANTS from 'extensions/safe/auth-constants';
 
 import logger from 'logger';
@@ -34,7 +34,7 @@ export const {
     TYPES.SET_RE_AUTHORISE_STATE,
     TYPES.SET_IS_AUTHORISED_STATE
 );
-
+/*
 const triggerAuthDecoding = reqObject =>
 {
     if ( !window || !window.thisIsTheBackgroundProcess ) return;
@@ -51,4 +51,4 @@ export const handleAuthUrl = createAliasedAction(
             type    : TYPES.HANDLE_AUTH_URL,
             payload : triggerAuthDecoding( reqObject ),
         } ),
-);
+); */

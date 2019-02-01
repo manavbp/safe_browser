@@ -10,7 +10,7 @@ import 'antd/lib/icon/style';
 
 import extendComponent from 'utils/extendComponent';
 import { wrapAddressBarButtonsRHS } from 'extensions/components';
-import styles from './buttonsRHS.css';
+import './buttonsRHS.css';
 
 import CustomMenu from 'components/CustomMenu';
 

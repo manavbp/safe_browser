@@ -1,5 +1,6 @@
 {
   "presets": [
+    "flow",
     ["env", {
       "targets": { "node": 8 },
       "useBuiltIns": true
@@ -26,10 +27,6 @@
         "transform-es2015-classes",
         "react-hot-loader/babel",
         [ "babel-plugin-webpack-alias", { "config": "./webpack.config.base.js" } ],
-        ["flow-runtime", {
-          "assert": true,
-          "annotate": true
-        }]
       ]
   },
   "test" : {
@@ -45,7 +42,7 @@
       "plugins": [
           "transform-es2015-modules-commonjs",
           "transform-class-properties",
-          "transform-es2015-classes"
+          "transform-es2015-classes",
         ]
     }
   }

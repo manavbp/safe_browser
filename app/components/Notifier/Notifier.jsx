@@ -1,5 +1,3 @@
-
-// @flow
 import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';

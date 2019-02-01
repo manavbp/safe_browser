@@ -1,5 +1,8 @@
 module.exports = {
-  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+  ],
   "env": {
     "browser": true,
     "node": true,
@@ -25,7 +28,8 @@ module.exports = {
     "brace-style": ["error", "allman"],
     "compat/compat": "error",
     "consistent-return": "warn",
-    "no-undef": "warn",
+    "no-unused-vars": ["error", { "vars": "local" , "varsIgnorePattern": "logger" }],
+    "no-undef": 2,
     "comma-dangle": ["error", "only-multiline"],
     "generator-star-spacing":["error", {"before": true, "after": false}],
     "no-underscore-dangle": "off",
@@ -45,7 +49,7 @@ module.exports = {
     "import/first": "off",
     "no-await-in-loop":"warn", 
     "import/no-duplicates": "warn",
-    "import/no-extraneous-dependencies": "warn", 
+    "import/no-extraneous-dependencies": "off", 
     "import/no-named-as-default": "warn", 
     "import/extensions":"warn", 
     "import/no-named-as-default-member": "warn", 
@@ -79,9 +83,14 @@ module.exports = {
     "promise",
     "compat",
     "react",
-    "jest"
+    "jest",
+    "css-modules",
+    "flowtype"
   ],
   "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    },
     "import/resolver": {
       alias: {
         map: [

@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CLASSES } from 'appConstants';
@@ -22,7 +21,7 @@ export default class AddressBar extends Component
         address               : PropTypes.string,
         isSelected            : PropTypes.bool,
         settingsMenuIsVisible : PropTypes.bool,
-        activeTab             : PropTypes.shape( { url: PropTypes.string } ),
+        activeTab             : PropTypes.shape( { url: PropTypes.string } ), // eslint-disable-line
         windowId              : PropTypes.number.isRequired,
         isBookmarked          : PropTypes.bool.isRequired,
         addTab                : PropTypes.func.isRequired,

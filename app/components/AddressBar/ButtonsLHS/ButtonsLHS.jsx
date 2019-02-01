@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 
 import logger from 'logger';
@@ -11,7 +12,7 @@ import { I18n } from 'react-redux-i18n';
 
 import extendComponent from 'utils/extendComponent';
 import { wrapAddressBarButtonsLHS } from 'extensions/components';
-import styles from './buttonsLHS.css';
+import './buttonsLHS.css';
 
 /**
  * Left hand side buttons for the Address Bar
