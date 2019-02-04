@@ -1,5 +1,3 @@
-
-// @flow
 import { remote, shell, webContents } from 'electron';
 import { TYPES } from 'actions/tabs_actions';
 import { TYPES as UI_TYPES } from 'actions/ui_actions';
@@ -71,19 +69,16 @@ const addTab = ( state, tab ) =>
     }
 
     const currentWindowId = getCurrentWindowId( );
-
     const targetWindowId = tab.windowId || currentWindowId;
     const tabUrl = makeValidAddressBarUrl( tab.url || '' );
     const faviconPath = isRunningUnpacked ? '../resources/favicon.ico' : '../favicon.ico';
     const newTab = { ...tab, windowId: targetWindowId, historyIndex: 0, history: [tabUrl], index: state.length, favicon: faviconPath };
 
     let newState = [...state];
-
     if ( newTab.isActiveTab )
     {
         newState = deactivateOldActiveTab( newState, targetWindowId );
     }
-
     newState.push( newTab );
 
     return newState;
@@ -399,6 +394,8 @@ export default function tabs( state: array = initialState, action )
     {
         case TYPES.ADD_TAB :
         {
+            console.log('This is a automated message');
+            console.log(payload);
             return addTab( state, payload );
         }
         case TYPES.SET_ACTIVE_TAB :

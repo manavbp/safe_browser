@@ -1,4 +1,3 @@
-// @flow
 import { createActions }from 'redux-actions';
 import initialAppState from './initialAppState';
 import { TYPES } from 'actions/ui_actions';

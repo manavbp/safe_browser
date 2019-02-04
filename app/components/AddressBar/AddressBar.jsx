@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { remote, ipcRenderer } from 'electron';
 import PropTypes from 'prop-types';
 import { CLASSES } from 'appConstants';
 // import { Column, Grid } from 'nessie-ui';
@@ -74,9 +75,8 @@ export default class AddressBar extends Component
 
         const addATab = ( tab ) =>
         {
-            addTab( { url: `safe-browser://${tab}`, isActiveTab: true } );
+            addTab( { url: `safe-browser://${tab}`, isActiveTab: true, windowId: remote.getCurrentWindow().webContents.id } );
         };
-
         return [
             <Row
                 key={ 'menuItem-bookmarks' }
