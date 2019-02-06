@@ -394,8 +394,6 @@ export default function tabs( state: array = initialState, action )
     {
         case TYPES.ADD_TAB :
         {
-            console.log('This is a automated message');
-            console.log(payload);
             return addTab( state, payload );
         }
         case TYPES.SET_ACTIVE_TAB :
