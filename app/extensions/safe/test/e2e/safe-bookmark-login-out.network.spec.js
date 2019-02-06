@@ -126,6 +126,26 @@ describe( 'SAFE network log in and out', async () =>
             // await delay( 1500 );
             const bookmarks = await client.getText( '.urlList__table' );
             // bookmarks is an array
+            console.log( 'bookmarks', bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
+            console.log( bookmarks );
             expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
             await delay( 1500 );
         } );
