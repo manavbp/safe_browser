@@ -129,13 +129,10 @@ describe( 'SAFE network log in and out', async () =>
             await delay( 8000 );
             // await delay( 1500 );
             /* eslint-disable */
-            var bookmarks;
-            await client.getText( '.urlList__table' ).then(function (text) {
-                bookmarks = text;
-            });
             // const bookmarks = await client.getText( '.urlList__table' );
+            
             // bookmarks is an array
-            expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
+            expect( client.getText( '.urlList__table' ) ).toMatch( 'shouldsavetobookmarks' );
             await delay( 1500 );
         } );
 
@@ -226,14 +223,8 @@ describe( 'SAFE network log in and out', async () =>
             await navigateTo( app, 'safe-browser:bookmarks' );
 
             await delay( 2500 );
-            
-            var bookmarksFinalCheck;
-            await client.getText( '.urlList__table' ).then(function (text) {
-                bookmarksFinalCheck = text;
-            });
-            
             // bookmarksFinalCheck is an array
-            expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
+            expect(client.getText( '.urlList__table' )).not.toMatch( 'shouldsavetobookmarks' );
         } );
     } );
 } );
