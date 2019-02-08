@@ -232,7 +232,6 @@ describe( 'main window', () =>
         const header = await client.getText( 'h1' );
 
         const bookmarks = await client.getText( '.urlList__table' );
-
         await delay( 2500 );
 
         expect( header ).toBe( 'Bookmarks' );

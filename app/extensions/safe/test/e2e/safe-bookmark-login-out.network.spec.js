@@ -154,7 +154,11 @@ describe( 'SAFE network log in and out', async () =>
             await navigateTo( app, 'safe-browser:bookmarks' );
 
             await delay( 1500 );
-            const bookmarksFinalCheck = await client.getText( '.urlList__table' );
+            const bookmarksFinalCheck;
+
+            await client.getText( '.urlList__table' ).then(function (text) {
+                bookmarksFinalCheck = text;
+            });
 
             // bookmarksFinalCheck is an array
             expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
@@ -213,7 +217,10 @@ describe( 'SAFE network log in and out', async () =>
             await navigateTo( app, 'safe-browser:bookmarks' );
 
             await delay( 2500 );
-            const bookmarksFinalCheck = await client.getText( '.urlList__table' );
+            const bookmarksFinalCheck;
+            await client.getText( '.urlList__table' ).then(function (text) {
+                bookmarksFinalCheck = text;
+            });
 
             // bookmarksFinalCheck is an array
             expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
