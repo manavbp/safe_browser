@@ -76,12 +76,8 @@ describe( 'SAFE network log in and out', async () =>
 
             await navigateTo( app, 'safe-browser:bookmarks' );
             await delay( 1500 );
-            // const bookmarksToSave = await client.getText( '.urlList__table' );
-            /* eslint-disable */
-            var bookmarksToSave;
-            await client.getText( '.urlList__table' ).then(function (text) {
-                bookmarksToSave = text;
-            });
+            const bookmarksToSave = await client.getText( '.urlList__table' );
+            await delay( 2000 );
             // bookmarks is an array
             expect( bookmarksToSave ).toMatch( 'shouldsavetobookmarks' );
 
@@ -128,11 +124,11 @@ describe( 'SAFE network log in and out', async () =>
             console.log( 'clicked loaaaaaaaddddddd and now waitinggggg' );
             await delay( 8000 );
             // await delay( 1500 );
-            /* eslint-disable */
-            // const bookmarks = await client.getText( '.urlList__table' );
-            
+            const bookmarks = await client.getText( '.urlList__table' );
+            await delay( 2000 );
+
             // bookmarks is an array
-            expect( client.getText( '.urlList__table' ) ).toMatch( 'shouldsavetobookmarks' );
+            expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
             await delay( 1500 );
         } );
 
@@ -160,11 +156,8 @@ describe( 'SAFE network log in and out', async () =>
             await navigateTo( app, 'safe-browser:bookmarks' );
 
             await delay( 1500 );
-            /* eslint-disable */
-            var bookmarksFinalCheck;
-            await client.getText( '.urlList__table' ).then(function (text) {
-                bookmarksFinalCheck = text;
-            });
+            const bookmarksFinalCheck = await client.getText( '.urlList__table' );
+            await delay( 2000 );
 
             // bookmarksFinalCheck is an array
             expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
@@ -223,8 +216,11 @@ describe( 'SAFE network log in and out', async () =>
             await navigateTo( app, 'safe-browser:bookmarks' );
 
             await delay( 2500 );
+            const bookmarksFinalCheck = await client.getText( '.urlList__table' );
+
+            await delay( 1500 );
             // bookmarksFinalCheck is an array
-            expect(client.getText( '.urlList__table' )).not.toMatch( 'shouldsavetobookmarks' );
+            expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
         } );
     } );
 } );
