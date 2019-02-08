@@ -76,8 +76,11 @@ describe( 'SAFE network log in and out', async () =>
 
             await navigateTo( app, 'safe-browser:bookmarks' );
             await delay( 1500 );
-            const bookmarksToSave = await client.getText( '.urlList__table' );
-
+            // const bookmarksToSave = await client.getText( '.urlList__table' );
+            /* eslint-disable */
+            await client.getText( '.urlList__table' ).then(function (text) {
+                bookmarksToSave = text;
+            });
             // bookmarks is an array
             expect( bookmarksToSave ).toMatch( 'shouldsavetobookmarks' );
 
@@ -124,7 +127,11 @@ describe( 'SAFE network log in and out', async () =>
             console.log( 'clicked loaaaaaaaddddddd and now waitinggggg' );
             await delay( 8000 );
             // await delay( 1500 );
-            const bookmarks = await client.getText( '.urlList__table' );
+            /* eslint-disable */
+            await client.getText( '.urlList__table' ).then(function (text) {
+                bookmarks = text;
+            });
+            // const bookmarks = await client.getText( '.urlList__table' );
             // bookmarks is an array
             expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
             await delay( 1500 );
