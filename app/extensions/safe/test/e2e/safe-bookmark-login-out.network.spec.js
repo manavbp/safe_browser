@@ -215,10 +215,10 @@ describe( 'SAFE network log in and out', async () =>
 
             await navigateTo( app, 'safe-browser:bookmarks' );
 
-            await delay( 2500 );
+            await delay( 3000 );
             const bookmarksFinalCheck = await client.getText( '.urlList__table' );
-
-            await delay( 1500 );
+            console.log( 'bookmarks:', bookmarksFinalCheck )
+            await delay( 3000 );
             // bookmarksFinalCheck is an array
             expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
         } );
