@@ -154,8 +154,8 @@ describe( 'SAFE network log in and out', async () =>
             await navigateTo( app, 'safe-browser:bookmarks' );
 
             await delay( 1500 );
-            const bookmarksFinalCheck;
-
+            /* eslint-disable */
+            var bookmarksFinalCheck;
             await client.getText( '.urlList__table' ).then(function (text) {
                 bookmarksFinalCheck = text;
             });
@@ -217,7 +217,7 @@ describe( 'SAFE network log in and out', async () =>
             await navigateTo( app, 'safe-browser:bookmarks' );
 
             await delay( 2500 );
-            const bookmarksFinalCheck;
+            var bookmarksFinalCheck;
             await client.getText( '.urlList__table' ).then(function (text) {
                 bookmarksFinalCheck = text;
             });
