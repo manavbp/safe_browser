@@ -78,6 +78,7 @@ describe( 'SAFE network log in and out', async () =>
             await delay( 1500 );
             // const bookmarksToSave = await client.getText( '.urlList__table' );
             /* eslint-disable */
+            var bookmarksToSave;
             await client.getText( '.urlList__table' ).then(function (text) {
                 bookmarksToSave = text;
             });
