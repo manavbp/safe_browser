@@ -79,7 +79,7 @@ describe( 'SAFE network log in and out', async () =>
             const bookmarksToSave = await client.getText( '.urlList__table' );
 
             // bookmarks is an array
-            expect( bookmarksToSave ).toMatch( 'shouldsavetobookmarks' );
+            expect( bookmarksToSave ).toContain( 'shouldsavetobookmarks' );
 
             await delay( 3500 );
 
@@ -136,7 +136,7 @@ describe( 'SAFE network log in and out', async () =>
             // await delay( 1500 );
             const bookmarks = await client.getText( '.urlList__table' );
             // bookmarks is an array
-            expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
+            expect( bookmarks ).toContain( 'shouldsavetobookmarks' );
             await delay( 1500 );
         } );
 
@@ -174,7 +174,7 @@ describe( 'SAFE network log in and out', async () =>
             const bookmarksFinalCheck = await client.getText( '.urlList__table' );
 
             // bookmarksFinalCheck is an array
-            expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
+            expect( bookmarksFinalCheck ).not.toContain( 'shouldsavetobookmarks' );
         } );
 
         it( 'login with a new account cannot after logout of old, cannot access prev account data.', async () =>
@@ -211,7 +211,7 @@ describe( 'SAFE network log in and out', async () =>
             const bookmarks = await client.getText( '.urlList__table' );
 
             // bookmarks is an array
-            expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
+            expect( bookmarks ).toContain( 'shouldsavetobookmarks' );
 
             await logout( app );
 
@@ -242,7 +242,7 @@ describe( 'SAFE network log in and out', async () =>
             const bookmarksFinalCheck = await client.getText( '.urlList__table' );
 
             // bookmarksFinalCheck is an array
-            expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
+            expect( bookmarksFinalCheck ).not.toContain( 'shouldsavetobookmarks' );
         } );
     } );
 } );
