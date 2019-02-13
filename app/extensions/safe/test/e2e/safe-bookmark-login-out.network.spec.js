@@ -134,7 +134,7 @@ describe( 'SAFE network log in and out', async () =>
 
             await delay( 8000 );
             // await delay( 1500 );
-            const bookmarks = await client.getText( '.urlList__table' );
+            const bookmarks = await client.getHTML( '.urlList__table' );
             // bookmarks is an array
             expect( bookmarks ).toContain( 'shouldsavetobookmarks' );
             await delay( 1500 );
@@ -242,7 +242,7 @@ describe( 'SAFE network log in and out', async () =>
             const bookmarksFinalCheck = await client.getText( '.urlList__table' );
 
             // bookmarksFinalCheck is an array
-            expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
+            expect( bookmarksFinalCheck ).not.toContain( 'shouldsavetobookmarks' );
         } );
     } );
 } );
