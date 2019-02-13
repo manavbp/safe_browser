@@ -242,7 +242,7 @@ describe( 'SAFE network log in and out', async () =>
             const bookmarksFinalCheck = await client.getText( '.urlList__table' );
 
             // bookmarksFinalCheck is an array
-            expect( bookmarksFinalCheck ).not.toContain( 'shouldsavetobookmarks' );
+            expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
         } );
     } );
 } );
