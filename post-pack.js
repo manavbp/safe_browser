@@ -93,7 +93,6 @@ if ( platform === WINDOWS )
         path.resolve( CONTAINING_FOLDER, 'SAFE Browser.crust.config' ),
         { overwrite: true }
     );
-    fs.unlinkSync( path.resolve( CONTAINING_FOLDER, 'safe-browser.crust.config' ) );
     fs.unlinkSync(
         path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' )
     );
@@ -123,7 +122,7 @@ removalArray.forEach( file =>
     fs.removeSync( `${ CONTAINING_FOLDER }/${ file }` );
 } );
 
-console.log(
+console.info(
     'Renaming package to:',
     path.resolve( targetDir, `${ RELEASE_FOLDER_NAME }` )
 );

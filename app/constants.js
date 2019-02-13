@@ -4,7 +4,7 @@ import { remote } from 'electron';
 import pkg from '@Package';
 import getPort from 'get-port';
 
-const platform = process.platform;
+export const platform = process.platform;
 const OSX = 'darwin';
 const LINUX = 'linux';
 const WINDOWS = 'win32';
@@ -83,6 +83,8 @@ export const isRunningNodeEnvTest = /^test/.test( env );
 export const isRunningDebug = hasDebugFlag || isRunningSpectronTestProcess;
 export const inRendererProcess = typeof window !== 'undefined';
 export const inMainProcess = typeof remote === 'undefined';
+
+export const currentWindowId = ( remote && remote.getCurrentWindow ) ? remote.getCurrentWindow().id : undefined;
 
 // Set global for tab preload.
 // Adds app folder for asar packaging (space before app is important).
