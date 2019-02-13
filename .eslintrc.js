@@ -18,7 +18,8 @@ module.exports = {
     },
     globals: {
         peruseStore: true,
-        should: true
+        should: true,
+        errConst: true
     },
     rules: {
         'array-bracket-spacing': ["error", "always"],
@@ -29,7 +30,7 @@ module.exports = {
         'brace-style': ['error', 'allman', { allowSingleLine: true }],
         'no-param-reassign': ['error', { props: false }],
         'compat/compat': 'error',
-        'consistent-return': 'warn',
+        'consistent-return': ["error", { "treatUndefinedAsUnspecified": false }],
         'no-undef': 'warn',
         'no-trailing-spaces': ['error', { ignoreComments: true }],
         'comma-dangle': ['error', 'only-multiline'],
@@ -69,6 +70,13 @@ module.exports = {
         'no-prototype-builtins': 'off',
         'promise/catch-or-return': 'warn',
         'promise/no-native': 'off',
+        'prefer-destructuring': ["error", {
+            "array": true,
+            "object": false
+          }, {
+            "enforceForRenamedProperties": false
+          }],
+        'class-methods-use-this': ["error", { "exceptMethods": ["_handleError"] }],
         'react/sort-comp': [
             'error',
             {

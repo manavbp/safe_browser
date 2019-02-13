@@ -65,7 +65,7 @@ class SystemUriLoader
     {
         if ( !this.lib )
         {
-            return;
+            return undefined;
         }
         if ( appInfo.exec && !Array.isArray( appInfo.exec ) )
         {
@@ -80,6 +80,7 @@ class SystemUriLoader
         const icon = appInfo.icon;
         const joinedSchemes = schemes.join ? schemes.join( ',' ) : schemes;
 
+        /* eslint-disable consistent-return */
         return new Promise( ( resolve, reject ) =>
         {
             try
@@ -108,7 +109,7 @@ class SystemUriLoader
     {
         if ( !this.lib )
         {
-            return;
+            return undefined;
         }
         return new Promise( ( resolve, reject ) =>
         {
@@ -123,6 +124,8 @@ class SystemUriLoader
             }
         } );
     }
+
+    /* eslint-enable consistent-return */   
 
     _handleError( resolve, reject )
     {
