@@ -1,4 +1,3 @@
-const aliases = require('./.aliases.js');
 
 module.exports = {
     "parser": "babel-eslint",
@@ -19,10 +18,12 @@ module.exports = {
     globals: {
         peruseStore: true,
         should: true,
-        errConst: true
+        errConst: true,
+        INVALID_RESPONSE:true
     },
     rules: {
         'array-bracket-spacing': ["error", "always"],
+        "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false, "varsIgnorePattern": "SAFE" }],
         'arrow-parens': ['error', 'as-needed'],
         'template-curly-spacing': ['error', 'always'],
         'max-len': 'off',
@@ -76,7 +77,7 @@ module.exports = {
           }, {
             "enforceForRenamedProperties": false
           }],
-        'class-methods-use-this': ["error", { "exceptMethods": ["_handleError"] }],
+    'class-methods-use-this': ["error", { "exceptMethods": ["_handleError", "fnsToRegister"] }],
         'react/sort-comp': [
             'error',
             {
@@ -107,8 +108,20 @@ module.exports = {
     plugins: ['import', 'promise', 'compat', 'react', 'jest'],
     settings: {
         'import/resolver': {
-            'babel-module': {
-                alias: aliases
+            alias: {
+                map: [
+                    ['test', './__tests__'],
+                    ['@Actions', './app/actions/'],
+                    ['@Store', './app/store/'],
+                    ['@Extensions', './app/extensions/'],
+                    ['@Reducers', './app/reducers/'],
+                    ['logger', './app/logger.js'],
+                    ['@Components', './app/components/'],
+                    ['@Constants', './app/constants.js'],
+                    ['@Package', './package.json'],
+                    ['@Utils', './app/utils'],
+                ],
+                extensions: ['.ts', '.js', '.jsx', '.json']
             }
         }
     }

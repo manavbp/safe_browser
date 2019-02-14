@@ -44,7 +44,7 @@ const _decodeReqPool = Symbol( 'decodeReqPool' );
  */
 const genAppUri = str =>
 {
-    const urlSafeBase64 = new Buffer( str )
+    const urlSafeBase64 = new Buffer.from( str ) // eslint-disable-line new-cap
         .toString( 'base64' )
         .replace( /\+/g, '-' ) // Convert '+' to '-'
         .replace( /\//g, '_' ) // Convert '/' to '_'
@@ -285,7 +285,7 @@ class Authenticator extends SafeLib
 
     reconnect()
     {
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             if ( !this.registeredClientHandle )
             {
@@ -297,7 +297,7 @@ class Authenticator extends SafeLib
                     ffi.Callback(
                         types.Void,
                         [ types.voidPointer, types.FfiResultPointer ],
-                        ( userData, resultPtr ) =>
+                        ( userData, resultPtr ) => // eslint-disable-line consistent-return
                         {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
@@ -327,7 +327,7 @@ class Authenticator extends SafeLib
 
     createAccount( locator, secret, invitation )
     {
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             const validationErr = this._isUserCredentialsValid( locator, secret );
             if ( validationErr )
@@ -358,7 +358,7 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.ClientHandlePointer
                         ],
-                        ( userData, resultPtr, clientHandle ) =>
+                        ( userData, resultPtr, clientHandle ) => // eslint-disable-line consistent-return
                         {
                             const result = resultPtr.deref();
                             if (
@@ -377,7 +377,7 @@ class Authenticator extends SafeLib
                     )
                 );
 
-                const onResult = ( err, res ) =>
+                const onResult = ( err, res ) => // eslint-disable-line consistent-return
                 {
                     if ( err || res !== 0 )
                     {
@@ -404,7 +404,7 @@ class Authenticator extends SafeLib
 
     login( locator, secret )
     {
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             const validationErr = this._isUserCredentialsValid( locator, secret );
             if ( validationErr )
@@ -422,7 +422,7 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.ClientHandlePointer
                         ],
-                        ( userData, resultPtr, clientHandle ) =>
+                        ( userData, resultPtr, clientHandle ) => // eslint-disable-line consistent-return
                         {
                             const result = resultPtr.deref();
                             if (
@@ -444,7 +444,7 @@ class Authenticator extends SafeLib
                     )
                 );
 
-                const onResult = ( err, res ) =>
+                const onResult = ( err, res ) => // eslint-disable-line consistent-return
                 {
                     if ( err || res !== 0 )
                     {
@@ -501,7 +501,7 @@ class Authenticator extends SafeLib
     {
         logger.info( 'Authenticator.js decoding request', uri );
 
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             if ( !uri )
             {
@@ -546,7 +546,7 @@ class Authenticator extends SafeLib
                             'Authenticator.js decoded authReq result: ',
                             result
                         );
-                        return this._isAlreadyAuthorised( authReq ).then(
+                        return this._isAlreadyAuthorised( authReq ).then( // eslint-disable-line consistent-return
                             resolved =>
                             {
                                 if ( resolved.isAuthorised )
@@ -595,7 +595,7 @@ class Authenticator extends SafeLib
                             result
                         );
 
-                        return this._isAlreadyAuthorisedContainer( contReq ).then(
+                        return this._isAlreadyAuthorisedContainer( contReq ).then( // eslint-disable-line consistent-return
                             isAuthorised =>
                             {
                                 if ( isAuthorised )
@@ -653,7 +653,7 @@ class Authenticator extends SafeLib
                                 return this._appsAccessingMData(
                                     mdata.name,
                                     mdata.type_tag
-                                ).then( res =>
+                                ).then( res => // eslint-disable-line promise/always-return
                                 {
                                     appAccess[i] = res;
                                 } );
@@ -715,7 +715,7 @@ class Authenticator extends SafeLib
 
     encodeAuthResp( req, isAllowed )
     {
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             logger.info(
                 'authenticator.js: encoding auth response',
@@ -756,7 +756,7 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
-                        ( userData, resultPtr, res ) =>
+                        ( userData, resultPtr, res ) => // eslint-disable-line consistent-return
                         {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
@@ -797,7 +797,7 @@ class Authenticator extends SafeLib
 
     encodeContainersResp( req, isAllowed )
     {
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             if ( !this.registeredClientHandle )
             {
@@ -831,7 +831,7 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
-                        ( userData, resultPtr, res ) =>
+                        ( userData, resultPtr, res ) => // eslint-disable-line consistent-return
                         {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
@@ -866,7 +866,7 @@ class Authenticator extends SafeLib
 
     encodeMDataResp( req, isAllowed )
     {
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             if ( !this.registeredClientHandle )
             {
@@ -901,7 +901,7 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
-                        ( userData, resultPtr, res ) =>
+                        ( userData, resultPtr, res ) => // eslint-disable-line consistent-return
                         {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
@@ -936,7 +936,7 @@ class Authenticator extends SafeLib
 
     revokeApp( appId )
     {
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             if ( !this.registeredClientHandle )
             {
@@ -986,7 +986,7 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
-                        ( userData, resultPtr, res ) =>
+                        ( userData, resultPtr, res ) => // eslint-disable-line consistent-return
                         {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
@@ -1015,7 +1015,7 @@ class Authenticator extends SafeLib
 
     getRegisteredApps()
     {
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             if ( !this.registeredClientHandle )
             {
@@ -1031,7 +1031,7 @@ class Authenticator extends SafeLib
                         types.RegisteredAppPointer,
                         types.usize
                     ],
-                    ( userData, resultPtr, appList, len ) =>
+                    ( userData, resultPtr, appList, len ) => // eslint-disable-line consistent-return
                     {
                         const result = resultPtr.deref();
                         this._deleteFromCb( cb );
@@ -1065,7 +1065,7 @@ class Authenticator extends SafeLib
 
     getAccountInfo()
     {
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             if ( !this.registeredClientHandle )
             {
@@ -1079,7 +1079,7 @@ class Authenticator extends SafeLib
                         types.FfiResultPointer,
                         types.AccountInfoPointer
                     ],
-                    ( userData, resultPtr, accInfo ) =>
+                    ( userData, resultPtr, accInfo ) => // eslint-disable-line consistent-return
                     {
                         const result = resultPtr.deref();
                         if ( result.error_code !== 0 )
@@ -1113,7 +1113,7 @@ class Authenticator extends SafeLib
     _appsAccessingMData( name, typeTag )
     {
         const nameBuf = types.XorName( Buffer.from( name, 'hex' ) ).buffer;
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return
         {
             if ( !this.registeredClientHandle )
             {
@@ -1184,8 +1184,10 @@ class Authenticator extends SafeLib
 
     _updateAppList()
     {
+        // eslint-disable-next-line promise/catch-or-return
         this.getRegisteredApps().then( apps =>
         {
+            // eslint-disable-next-line promise/always-return
             if (
                 this[_appListUpdateListener]
                 && this[_appListUpdateListener].len() !== 0
@@ -1196,7 +1198,7 @@ class Authenticator extends SafeLib
         } );
     }
 
-    _decodeUnRegisteredRequest( parsedUri, resolve, reject )
+    _decodeUnRegisteredRequest( parsedUri, resolve, reject ) // eslint-disable-line consistent-return
     {
         if ( !parsedUri )
         {
@@ -1245,6 +1247,7 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
+                        // eslint-disable-next-line consistent-return
                         ( userData, resultPtr, res ) =>
                         {
                             const result = resultPtr.deref();
@@ -1298,10 +1301,12 @@ class Authenticator extends SafeLib
     _isAlreadyAuthorised( request )
     {
         const req = lodash.cloneDeep( request );
+        // eslint-disable-next-line consistent-return
         return new Promise( ( resolve, reject ) =>
         {
             try
             {
+            // eslint-disable-next-line promise/catch-or-return
                 this.getRegisteredApps()
                     .then( authorisedApps =>
                     {
@@ -1336,10 +1341,12 @@ class Authenticator extends SafeLib
     {
         const req = lodash.cloneDeep( request );
         let app = null;
+        // eslint-disable-next-line consistent-return
         return new Promise( ( resolve, reject ) =>
         {
             try
             {
+                // eslint-disable-next-line promise/catch-or-return
                 this.getRegisteredApps().then( authorisedApps =>
                 {
                     app = authorisedApps.filter( apps =>
@@ -1349,7 +1356,7 @@ class Authenticator extends SafeLib
                     {
                         return resolve( false );
                     }
-                    app = app[0];
+                    [ app ] = app;
                     let i;
                     for ( i = 0; i < req.containers.length; i++ )
                     {
@@ -1406,7 +1413,7 @@ class Authenticator extends SafeLib
      * @private
      */
     /* eslint-disable class-methods-use-this */
-    _isUserCredentialsValid( locator, secret )
+    _isUserCredentialsValid( locator, secret ) // eslint-disable-line consistent-return
     {
         /* eslint-enable class-methods-use-this */
         if ( !locator )

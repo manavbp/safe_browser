@@ -56,7 +56,7 @@ class LibLoader
             ffiFunctions = Object.assign( {}, ffiFunctions, fnsToRegister );
         } );
 
-        return new Promise( ( resolve, reject ) =>
+        return new Promise( ( resolve, reject ) => // eslint-disable-line consistent-return 
         {
             try
             {
@@ -101,7 +101,7 @@ class LibLoader
                             ffi.Callback(
                                 types.Void,
                                 [ types.voidPointer, types.FfiResultPointer ],
-                                ( userData, resultPtr ) =>
+                                ( userData, resultPtr ) => // eslint-disable-line consistent-return 
                                 {
                                     const result = resultPtr.deref();
                                     if ( result.error_code !== 0 )
@@ -126,7 +126,7 @@ class LibLoader
                     ffi.Callback(
                         types.Void,
                         [ types.voidPointer, types.FfiResultPointer ],
-                        ( userData, resultPtr ) =>
+                        ( userData, resultPtr ) => // eslint-disable-line consistent-return 
                         {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )

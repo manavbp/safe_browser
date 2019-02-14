@@ -101,10 +101,12 @@ export const parseContainerReq = containersReq => ( {
 
 const parseXorName = str =>
 {
-    const b = new Buffer( str );
+    // eslint-disable-next-line new-cap
+    const b = new Buffer.from( str );
     if ( b.length !== 32 ) throw Error( 'XOR Names _must be_ 32 bytes long.' );
     const name = types.XorName( b );
-    return new Buffer( name ).toString( 'hex' );
+    // eslint-disable-next-line new-cap
+    return new Buffer.from( name ).toString( 'hex' );
 };
 
 const parseShareMData = shareMData => ( {
@@ -150,8 +152,10 @@ export const parseUserMetaDataArray = ( metaArr, len ) =>
 
 const parseAppAccessInfo = appAccess =>
 {
-    let signKey = types.U8Array( new Buffer( appAccess.sign_key ) );
-    signKey = new Buffer( signKey ).toString( 'hex' );
+    /* eslint-disable new-cap */
+    let signKey = types.U8Array( new Buffer.from( appAccess.sign_key ) );
+    signKey = new Buffer.from( signKey ).toString( 'hex' );
+    /* eslint-disable new-cap */
     return {
         sign_key    : signKey,
         permissions : parsePermissionSet( appAccess.permissions ),

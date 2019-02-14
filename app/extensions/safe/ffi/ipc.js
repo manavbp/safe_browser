@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { shell } from 'electron';
 import { receivedAuthResponse } from '@Extensions/safe/actions/safeBrowserApplication_actions';
 import {
@@ -154,7 +153,7 @@ class ReqQueue
             return;
         }
         this.processing = true;
-        this.req = this.q[0];
+        [ this.req ] = this.q;
 
         authenticator
             .decodeRequest( this.req.uri )
@@ -215,6 +214,8 @@ class ReqQueue
                 // }
 
                 // WEB && not an auth req (that's handled above)
+
+                /* eslint-disable promise/always-return */
                 if ( this.req.type === CLIENT_TYPES.WEB )
                 {
                     logger.info(
@@ -228,7 +229,7 @@ class ReqQueue
 
                     return;
                 }
-
+                /* eslint-enable promise/always-return */               
                 self.openExternal( res );
 
                 self.next();
@@ -340,7 +341,7 @@ const onSharedMDataReq = e =>
         }
     );
 };
-
+// eslint-disable-next-line consistent-return 
 const onAuthDecision = ( authData, isAllowed ) =>
 {
     logger.info( 'IPC.js: onAuthDecision running...', authData, isAllowed );
@@ -368,7 +369,7 @@ const onAuthDecision = ( authData, isAllowed ) =>
                 'IPC.js: Successfully encoded auth response. Here is the res:',
                 res
             );
-
+            /* eslint-disable promise/always-return */
             if ( allAuthCallBacks[reqQ.req.id] )
             {
                 allAuthCallBacks[reqQ.req.id].resolve( res );
@@ -378,7 +379,7 @@ const onAuthDecision = ( authData, isAllowed ) =>
             {
                 reqQ.openExternal( res );
             }
-
+            /* eslint-enable promise/always-return */
             reqQ.next();
         } )
         .catch( err =>
@@ -395,7 +396,7 @@ const onAuthDecision = ( authData, isAllowed ) =>
             reqQ.next();
         } );
 };
-
+// eslint-disable-next-line consistent-return 
 const onContainerDecision = ( contData, isAllowed ) =>
 {
     if ( !contData )
@@ -419,6 +420,7 @@ const onContainerDecision = ( contData, isAllowed ) =>
         .then( res =>
         {
             reqQ.req.res = res;
+            /* eslint-disable promise/always-return */
             if ( allAuthCallBacks[reqQ.req.id] )
             {
                 allAuthCallBacks[reqQ.req.id].resolve( res );
@@ -428,7 +430,7 @@ const onContainerDecision = ( contData, isAllowed ) =>
             {
                 reqQ.openExternal( res );
             }
-
+            /* eslint-enable promise/always-return */
             reqQ.next();
         } )
         .catch( err =>
@@ -451,7 +453,7 @@ export const onSharedMDataDecision = (
     isAllowed,
     queue = reqQ,
     authCallBacks = allAuthCallBacks
-) =>
+) => // eslint-disable-line consistent-return
 {
     if ( !data )
     {
@@ -474,7 +476,7 @@ export const onSharedMDataDecision = (
         .then( res =>
         {
             queue.req.res = res;
-
+            /* eslint-disable promise/always-return */
             if ( authCallBacks[queue.req.id] )
             {
                 authCallBacks[queue.req.id].resolve( res );
@@ -484,7 +486,7 @@ export const onSharedMDataDecision = (
             {
                 queue.openExternal( res );
             }
-
+            /* eslint-enable promise/always-return */
             queue.next();
         } )
         .catch( err =>

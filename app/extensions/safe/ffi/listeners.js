@@ -14,7 +14,7 @@ export default class Listener
     {
         if ( typeof cb !== 'function' )
         {
-            return;
+            return undefined;
         }
         const rand = crypto.randomBytes( 32 ).toString( 'hex' );
         this[_cbFunctions][rand] = cb;
