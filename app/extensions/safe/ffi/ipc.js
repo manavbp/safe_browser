@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { shell } from 'electron';
 import { receivedAuthResponse } from '@Extensions/safe/actions/safeBrowserApplication_actions';
 import {

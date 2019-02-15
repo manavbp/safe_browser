@@ -1,7 +1,6 @@
 /**
  * LibLoader class to load APIs
  */
-/* eslint-disable no-underscore-dangle */
 import ffi from 'ffi';
 import os from 'os';
 import path from 'path';

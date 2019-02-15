@@ -1,7 +1,6 @@
 /**
  * SafeLib class - base class for other lib classes
  */
-/* eslint-disable no-underscore-dangle */
 // Private variables
 const _safeLib = Symbol( 'safeLib' );
 const _isLibraryLoaded = Symbol( 'isLibraryLoaded' );

@@ -1,7 +1,4 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable import/no-unresolved, import/extensions */
 import ffi from 'ffi';
-/* eslint-enable import/no-unresolved, import/extensions */
 import os from 'os';
 import path from 'path';
 import ArrayType from 'ref-array';

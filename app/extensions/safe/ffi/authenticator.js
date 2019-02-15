@@ -3,11 +3,9 @@
  *
  * Running in the background process
  */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable import/no-unresolved, import/extensions */
+/* eslint-disable import/no-extraneous-dependencies */
 import ffi from 'ffi';
 import ref from 'ref';
-/* eslint-enable import/no-unresolved, import/extensions */
 import crypto from 'crypto';
 import lodash from 'lodash';
 import logger from 'logger';

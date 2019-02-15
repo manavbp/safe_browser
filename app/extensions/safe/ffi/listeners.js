@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import crypto from 'crypto';
 
 const _cbFunctions = Symbol( '_cbFunctions' );
