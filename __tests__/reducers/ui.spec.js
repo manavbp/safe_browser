@@ -5,6 +5,12 @@ import initialState from 'reducers/initialAppState';
 
 describe( 'notification reducer', () =>
 {
+    const uiStateShow = {
+        windows : [ { windowId: 1, settingsMenuIsVisible: true } ]
+    };
+    const uiStateHide = {
+        windows : [ { windowId: 1, settingsMenuIsVisible: false } ]
+    };
     it( 'should return the initial state', () =>
     {
         expect( ui( undefined, {} ) ).toEqual( initialState.ui );
@@ -16,12 +22,13 @@ describe( 'notification reducer', () =>
         {
             expect(
                 ui(
-                    {},
+                    { windows: [] },
                     {
-                        type : TYPES.SHOW_SETTINGS_MENU
+                        type    : TYPES.SHOW_SETTINGS_MENU,
+                        payload : 1
                     }
                 )
-            ).toEqual( { settingsMenuIsVisible: true } );
+            ).toEqual( uiStateShow );
         } );
     } );
 
@@ -31,12 +38,13 @@ describe( 'notification reducer', () =>
         {
             expect(
                 ui(
-                    {},
+                    { windows: [ { windowId: 1, settingsMenuIsVisible: true } ] },
                     {
-                        type : TYPES.HIDE_SETTINGS_MENU
+                        type    : TYPES.HIDE_SETTINGS_MENU,
+                        payload : { windowId: 1 }
                     }
                 )
-            ).toEqual( { settingsMenuIsVisible: false } );
+            ).toEqual( uiStateHide );
         } );
     } );
 
