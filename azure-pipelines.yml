@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 pool:
-  vmImage: 'macOS-10.13'
+  vmImage: 'vs2017-win2016'
 
 steps:
 - task: NodeTool@0
@@ -17,4 +17,5 @@ steps:
      ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
      NODE_ENV=dev yarn
      NODE_ENV=dev yarn rebuild
-  displayName: 'npm install, run webpack'
+     yarn run test
+  displayName: 'scripts test'
