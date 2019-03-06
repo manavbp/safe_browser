@@ -17,4 +17,5 @@ steps:
      ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
      NODE_ENV=dev yarn
      NODE_ENV=dev yarn rebuild
+     yarn run test
   displayName: 'npm install, run webpack'
