@@ -1,27 +1,27 @@
-import { remote } from 'electron';
+import { remote, shell, webContents } from 'electron';
 import _ from 'lodash';
 import { TYPES } from '$Actions/bookmarks_actions';
-import { TYPES as UI_TYPES } from '$Actions/ui_actions';
+import { TYPES as TABS_TYPES } from '$Actions/tabs_actions';
 import { makeValidAddressBarUrl } from '$Utils/urlHelpers';
-import { initialState as initialAppState } from './initialAppState';
+import { initialAppState } from './initialAppState';
 
 const initialState = initialAppState.bookmarks;
 
-const addBookmark = ( state, bookmark ) => {
-    if ( !bookmark ) {
-        throw new Error( 'You must pass a bookmark object with url' );
-    }
+const addBookmark = (state, bookmark) => {
+  if (!bookmark) {
+    throw new Error('You must pass a bookmark object with url');
+  }
 
-    // TODO, check if url existssss
+  // TODO, check if url existssss
 
-    const bookmarkUrl = makeValidAddressBarUrl( bookmark.url || '' );
-    const newBookmark = { ...bookmark };
+  const bookmarkUrl = makeValidAddressBarUrl(bookmark.url || '');
+  const newBookmark = { ...bookmark };
 
-    const newState = [...state];
+  const newState = [...state];
 
-    newState.push( newBookmark );
+  newState.push(newBookmark);
 
-    return newState;
+  return newState;
 };
 
 /**
@@ -29,41 +29,41 @@ const addBookmark = ( state, bookmark ) => {
  * @param { array } state
  * @param { object } payload
  */
-const removeBookmark = ( state, payload ) => {
-    const removalIndex = state.findIndex(
-        ( bookmark ) => bookmark.url === payload.url
-    );
-    const updatedState = [...state];
+const removeBookmark = (state, payload) => {
+  const removalIndex = state.findIndex(
+    (bookmark) => bookmark.url === payload.url
+  );
+  const updatedState = [...state];
 
-    updatedState.splice( removalIndex, 1 );
+  updatedState.splice(removalIndex, 1);
 
-    return updatedState;
+  return updatedState;
 };
 
-const updateBookmark = ( state, payload ) => {
-    const { index } = payload;
+const updateBookmark = (state, payload) => {
+  const { index } = payload;
 
-    if ( index < 0 ) {
+  if (index < 0) {
     // TODO : Should we actually be adding here?
-        return state;
-    }
+    return state;
+  }
 
-    const bookmarkToMerge = state[index];
+  const bookmarkToMerge = state[index];
 
-    let updatedBookmark = { ...bookmarkToMerge };
+  let updatedBookmark = { ...bookmarkToMerge };
 
-    updatedBookmark = { ...updatedBookmark, ...payload };
+  updatedBookmark = { ...updatedBookmark, ...payload };
 
-    if ( payload.url ) {
-        const url = makeValidAddressBarUrl( payload.url );
-        updatedBookmark = { ...updatedBookmark, url };
-    }
+  if (payload.url) {
+    const url = makeValidAddressBarUrl(payload.url);
+    updatedBookmark = { ...updatedBookmark, url };
+  }
 
-    const updatedState = [...state];
+  const updatedState = [...state];
 
-    updatedState[index] = updatedBookmark;
+  updatedState[index] = updatedBookmark;
 
-    return updatedState;
+  return updatedState;
 };
 
 /**
@@ -72,35 +72,35 @@ const updateBookmark = ( state, payload ) => {
  * @param  { object } action action Object
  * @return { array }        updatd state object
  */
-export function bookmarks( state: Array<{}> = initialState, action ): Array<{}> {
-    const { payload } = action;
+export function bookmarks(state: Array<{}> = initialState, action): Array<{}> {
+  const { payload } = action;
 
-    if ( action.error ) {
-        console.info( 'ERROR IN ACTION', action.error );
-        return state;
+  if (action.error) {
+    console.info('ERROR IN ACTION', action.error);
+    return state;
+  }
+
+  switch (action.type) {
+    case TYPES.ADD_BOOKMARK: {
+      return addBookmark(state, payload);
     }
-
-    switch ( action.type ) {
-        case TYPES.ADD_BOOKMARK: {
-            return addBookmark( state, payload );
-        }
-        case TYPES.REMOVE_BOOKMARK: {
-            return removeBookmark( state, payload );
-        }
-        case TYPES.UPDATE_BOOKMARK: {
-            return updateBookmark( state, payload );
-        }
-        case TYPES.UPDATE_BOOKMARKS: {
-            const payloadBookmarks = payload.bookmarks;
-            const newBookmarks = [...state, ...payloadBookmarks];
-
-            return _.uniqBy( newBookmarks, 'url' );
-        }
-        case UI_TYPES.RESET_STORE: {
-            const initial = initialState;
-            return [...initial];
-        }
-        default:
-            return state;
+    case TYPES.REMOVE_BOOKMARK: {
+      return removeBookmark(state, payload);
     }
+    case TYPES.UPDATE_BOOKMARK: {
+      return updateBookmark(state, payload);
+    }
+    case TYPES.UPDATE_BOOKMARKS: {
+      const payloadBookmarks = payload.bookmarks;
+      const newBookmarks = [...state, ...payloadBookmarks];
+
+      return _.uniqBy(newBookmarks, 'url');
+    }
+    case TABS_TYPES.RESET_STORE: {
+      const initial = initialState;
+      return [...initial];
+    }
+    default:
+      return state;
+  }
 }
