@@ -1,11 +1,11 @@
 /* eslint-disable func-names */
 import { safeBrowserApp } from '$Extensions/safe/reducers/safeBrowserApp';
 import { TYPES } from '$Extensions/safe/actions/safeBrowserApplication_actions';
-import { initialState } from '$Extensions/safe/reducers/initialAppState';
+import { initialAppState } from '$Extensions/safe/reducers/initialAppState';
 import { CONFIG } from '$Constants';
 import { SAFE } from '$Extensions/safe/constants';
 
-const safeInitialState = initialState.safeBrowserApp;
+const safeInitialState = initialAppState.safeBrowserApp;
 
 // https://github.com/facebook/jest/issues/3552
 jest.mock( 'extensions/safe/safeBrowserApplication', () => ( {
