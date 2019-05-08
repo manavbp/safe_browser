@@ -34,7 +34,7 @@ const addWindow = ( state, tab ) => {
 const addTabNext = ( state, tab ) => {
     const openWindows = { ...state.openWindows };
     const targetWindow = tab.windowId;
-    const {tabId} = tab;
+    const { tabId } = tab;
     const lasttabIndex = ++tab.tabIndex || 0;
     openWindows[targetWindow].tabs.splice( lasttabIndex, 0, tabId );
     const newTabs = openWindows[targetWindow].tabs;
@@ -53,7 +53,7 @@ const addTabNext = ( state, tab ) => {
 const addTabEnd = ( state, tab ) => {
     const openWindows = { ...state.openWindows };
     const targetWindow = tab.windowId;
-    const {tabId} = tab;
+    const { tabId } = tab;
     openWindows[targetWindow].tabs.push( tabId );
     const newWindow = {
         activeTab: null,
@@ -69,7 +69,7 @@ const addTabEnd = ( state, tab ) => {
 
 const setActiveTab = ( state, tab ) => {
     const targetWindow = tab.windowId;
-    const {tabId} = tab;
+    const { tabId } = tab;
     const openWindows = { ...state.openWindows };
     const newWindow = {
         ...openWindows[targetWindow],
@@ -84,7 +84,7 @@ const closetab = ( state, tab ) => {
     const targetWindow = tab.windowId;
     const openWindows = { ...state.openWindows };
     const closedWindows = { ...state.closedWindows };
-    const {tabId} = tab;
+    const { tabId } = tab;
     const lasttabIndex = openWindows[targetWindow].tabs.findIndex( ( tab ) => {
         return tab === tabId;
     } );
@@ -188,7 +188,7 @@ const hideSettingsMenu = ( state, payload ) => {
 
 const resetStore = ( state, payload ) => {
     const targetWindow = payload.windowId;
-    const {tabId} = payload;
+    const { tabId } = payload;
     const newState = {
         openWindows: {
             [targetWindow]: {
@@ -210,7 +210,7 @@ const resetStore = ( state, payload ) => {
 };
 
 export const windows = ( state: object = initialState, action ) => {
-    const {payload} = action;
+    const { payload } = action;
 
     if ( action.error ) {
         logger.error( 'ERROR IN ACTION', action.error );

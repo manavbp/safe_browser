@@ -54,13 +54,15 @@ export const replyToRemoteCallFromAuth = ( request ) => {
     const state = store.getState();
     const { remoteCalls } = state;
 
-    const remoteCallToReply = remoteCalls.find( ( theCall ) : boolean => {
-        if ( theCall.name !== 'authenticateFromUriObject' ) return false;
+    const remoteCallToReply = remoteCalls.find(
+        ( theCall ): boolean => {
+            if ( theCall.name !== 'authenticateFromUriObject' ) return false;
 
-        const theRequestFromCall = theCall.args[0].uri;
+            const theRequestFromCall = theCall.args[0].uri;
 
-        return theRequestFromCall === request.uri;
-    } );
+            return theRequestFromCall === request.uri;
+        }
+    );
 
     store.dispatch(
         updateRemoteCall( {

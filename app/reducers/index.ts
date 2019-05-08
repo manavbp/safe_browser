@@ -12,12 +12,12 @@ import { getExtensionReducers } from '$Extensions';
 const additionalReducers = getExtensionReducers();
 
 export function createRootReducer() {
-  return combineReducers({
-    bookmarks,
-    notifications,
-    remoteCalls,
-    tabs,
-    windows,
-    ...additionalReducers
-  });
+    return combineReducers( {
+        bookmarks,
+        notifications,
+        remoteCalls,
+        tabs,
+        windows,
+        ...additionalReducers
+    } );
 }
