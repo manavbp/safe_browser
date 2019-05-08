@@ -1,4 +1,5 @@
-import windows from '$Reducers/windows';
+import { windows } from '$Reducers/windows';
+import { TYPES as TABS_TYPES } from '$Actions/tabs_actions'
 import { TYPES } from '$Actions/windows_actions';
 import { initialAppState } from '$Reducers/initialAppState';
 import { isRunningUnpacked } from '$Constants';
@@ -501,6 +502,7 @@ describe( 'windows reducer', () => {
                 openWindows: {
                     '1': {
                         ...basicwindow,
+                        activeTab: tabId2,
                         tabs: [tabId2, tabId1]
                     }
                 },
@@ -540,6 +542,7 @@ describe( 'windows reducer', () => {
                 openWindows: {
                     '1': {
                         ...basicwindow,
+                        activeTab: tabId1,
                         tabs: [tabId, tabId1]
                     }
                 },

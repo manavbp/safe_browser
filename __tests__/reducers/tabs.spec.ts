@@ -23,7 +23,8 @@ describe( 'tabs reducer', () => {
         ui: {
             addressBarIsSelected: false,
             pageIsLoading: false,
-            shouldFocusWebview: false
+            shouldFocusWebview: false,
+            shouldToggleDevTools: false
         },
         webId: undefined,
         history: ['hello'],
@@ -68,7 +69,8 @@ describe( 'tabs reducer', () => {
                     ui: {
                         addressBarIsSelected: false,
                         pageIsLoading: false,
-                        shouldFocusWebview: false
+                        shouldFocusWebview: false,
+                        shouldToggleDevTools: false
                     },
                     webId: undefined,
                     history: ['another-url'],
@@ -517,7 +519,8 @@ describe( 'tabs reducer', () => {
                     ui: {
                         addressBarIsSelected: true,
                         pageIsLoading: false,
-                        shouldFocusWebview: false
+                        shouldFocusWebview: false,
+                        shouldToggleDevTools: false
                     }
                 }
             } );
@@ -542,7 +545,8 @@ describe( 'tabs reducer', () => {
                     ui: {
                         addressBarIsSelected: false,
                         pageIsLoading: false,
-                        shouldFocusWebview: false
+                        shouldFocusWebview: false,
+                        shouldToggleDevTools: false
                     }
                 }
             } );
@@ -553,10 +557,11 @@ describe( 'tabs reducer', () => {
             const tabsPostLogout = tabs(
                 { [tabId]: basicTab, [tabId1]: { ...basicTab, tabId: tabId1 } },
                 {
-                    type: TYPES.RESET_STORE
+                    type: TYPES.RESET_STORE,
+                    payload: { tabId, url: 'safe-auth://home/' }
                 }
             );
-            expect( tabsPostLogout ).toMatchObject( initialState.tabs );
+            expect( tabsPostLogout ).toMatchObject( initialAppState.tabs );
         } );
     } );
 } );
