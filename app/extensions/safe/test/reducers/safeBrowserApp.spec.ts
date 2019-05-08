@@ -14,7 +14,9 @@ jest.mock( 'extensions/safe/safeBrowserApplication', () => ( {
 
 describe( 'SafeBrowserApp App reducer', () => {
     it( 'should return the initial state', () => {
-        expect( safeBrowserApp( undefined, {} ) ).toEqual( initialState.safeBrowserApp );
+        expect( safeBrowserApp( undefined, {} ) ).toEqual(
+            initialAppState.safeBrowserApp
+        );
     } );
 
     describe( 'SET_APP_STATUS', () => {

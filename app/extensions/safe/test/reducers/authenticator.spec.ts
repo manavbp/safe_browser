@@ -11,7 +11,7 @@ jest.mock( 'electron-redux', () => ( {
 
 describe( 'authenticator reducer', () => {
     it( 'should return the initial state', () => {
-        expect( authenticator( undefined, {} ) ).toEqual( initialState.authenticator );
+        expect( authenticator( undefined, {} ) ).toEqual( initialAppState.authenticator );
     } );
 
     describe( 'SET_AUTH_NETWORK_STATUS', () => {

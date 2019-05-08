@@ -5,7 +5,7 @@ import { initialState } from '$Extensions/safe/reducers/initialAppState';
 
 describe( 'SAFE WEB fetch reducer', () => {
     it( 'should return the initial state', () => {
-        expect( webFetch( undefined, {} ) ).toEqual( initialState.webFetch );
+        expect( webFetch( undefined, {} ) ).toEqual( initialAppState.webFetch );
     } );
 
     describe( 'SET_WEB_FETCH_STATUS', () => {

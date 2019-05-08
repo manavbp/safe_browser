@@ -1,7 +1,7 @@
 /* eslint-disable */
 import windows from '$Reducers/windows';
 import { TYPES } from '$Actions/windows_actions';
-import initialState from '$Reducers/initialAppState';
+import {initialAppState} from '$Reducers/initialAppState';
 import { isRunningUnpacked } from '$Constants';
 
 describe('windows reducer', () => {
@@ -9,7 +9,7 @@ describe('windows reducer', () => {
   const tabId1 = Math.random().toString(36);
   const tabId2 = Math.random().toString(36);
   const tabId3 = Math.random().toString(36);
-  const IntialState = initialState.windows;
+  const IntialState = initialAppState.windows;
   const basicwindow = {
     activeTab: null,
     ui: {
@@ -18,7 +18,7 @@ describe('windows reducer', () => {
     tabs: []
   };
   it('should return the initial state', () => {
-    expect(windows(undefined, {})).toEqual(initialState.windows);
+    expect(windows(undefined, {})).toEqual(initialAppState.windows);
   });
   describe('ADD_WINDOW', () => {
     it('should handle adding a window', () => {

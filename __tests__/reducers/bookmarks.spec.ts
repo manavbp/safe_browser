@@ -3,11 +3,11 @@ import { bookmarks } from '$Reducers/bookmarks';
 import { TYPES } from '$Actions/bookmarks_actions';
 import { TYPES as UI_TYPES } from '$Actions/ui_actions';
 
-import { initialState } from '$Reducers/initialAppState';
+import { initialAppState } from '$Reducers/initialAppState';
 
 describe( 'notification reducer', () => {
     it( 'should return the initial state', () => {
-        expect( bookmarks( undefined, {} ) ).toEqual( initialState.bookmarks );
+        expect( bookmarks( undefined, {} ) ).toEqual( initialAppState.bookmarks );
     } );
 
     describe( 'ADD_BOOKMARK', () => {

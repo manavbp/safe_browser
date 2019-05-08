@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 import { tabs } from '$Reducers/tabs';
 import { TYPES } from '$Actions/tabs_actions';
-import { initialState } from '$Reducers/initialAppState';
+import { initialAppState } from '$Reducers/initialAppState';
 import { isRunningUnpacked } from '$Constants';
 
 const favicon = isRunningUnpacked
@@ -31,7 +31,7 @@ describe( 'tabs reducer', () => {
     };
 
     it( 'should return the initial state', () => {
-        expect( tabs( undefined, {} ) ).toEqual( initialState.tabs );
+        expect( tabs( undefined, {} ) ).toEqual( initialAppState.tabs );
     } );
 
     describe( 'ADD_TAB', () => {
