@@ -45,12 +45,14 @@ export class TabBar extends Component<TabBarProps, TabBarState> {
     }
 
     getTabs = (): Array<React.ReactNode> => {
-        const { tabs } = this.props;
+        const { tabs, activeTabId } = this.props;
+        // const { tabs, windowId, activeTabId } = this.props;
+        // const currentWindow = Object.keys(this.props.windows.openWindows).length>=1 ? this.props.windows.openWindows[windowId] : {};
 
         return tabs.map(
             ( tab ): React.ReactNode => {
                 let { title } = tab;
-                const {tabId} = tab;
+                const { tabId } = tab;
 
                 if ( isInternalPage( tab ) ) {
                     // TODO: DRY this out with TabContents.jsx
@@ -74,7 +76,6 @@ export class TabBar extends Component<TabBarProps, TabBarState> {
                     return null;
                 }
 
-                const { isActiveTab } = tab;
                 let tabStyleClass = styles.tab;
                 const tabData = {
                     key: tab.index,
@@ -82,7 +83,7 @@ export class TabBar extends Component<TabBarProps, TabBarState> {
                     url: tab.url
                 };
 
-                if ( isActiveTab ) {
+                if ( tabId === activeTabId ) {
                     tabStyleClass = `${styles.activeTab} ${CLASSES.ACTIVE_TAB}`;
                 }
 
