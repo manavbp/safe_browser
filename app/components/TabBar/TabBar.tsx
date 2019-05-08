@@ -13,16 +13,6 @@ import { I18n } from 'react-redux-i18n';
 import { isInternalPage } from '$Utils/urlHelpers';
 import { CLASSES, INTERNAL_PAGES } from '$Constants';
 
-// interface TabBarProps {
-//     tabInFocus: number;
-//     tabs: Array<any>;
-//     setActiveTab: ( ...args: Array<any> ) => any;
-//     addTab: ( ...args: Array<any> ) => any;
-//     closeTab: ( ...args: Array<any> ) => any;
-//     selectAddressBar: ( ...args: Array<any> ) => any;
-//     windowId: number;
-// }
-
 interface TabBarProps {
     tabInFocus: number;
     activeTab: any;
@@ -37,10 +27,10 @@ interface TabBarProps {
     tabs: Array<any>;
 }
 
-// interface TabBarState {
-//     tabInFocus: number;
-// }
-export class TabBar extends Component<TabBarProps> {
+interface TabBarState {
+    tabInFocus: number;
+}
+export class TabBar extends Component<TabBarProps, TabBarState> {
     static defaultProps = {
         tabInFocus: 0,
         tabs: []
@@ -60,6 +50,8 @@ export class TabBar extends Component<TabBarProps> {
         return tabs.map(
             ( tab ): React.ReactNode => {
                 let { title } = tab;
+                const {tabId} = tab;
+
                 if ( isInternalPage( tab ) ) {
                     // TODO: DRY this out with TabContents.jsx
                     const urlObj = url.parse( tab.url );
@@ -100,11 +92,11 @@ export class TabBar extends Component<TabBarProps> {
                         role="tab"
                         key={tab.index}
                         className={`${tabStyleClass} ${CLASSES.TAB}`}
-                        onClick={event => {
-                            this.handleTabClick( tabData, event );
+                        onClick={( event ) => {
+                            this.handleTabClick( tabId, event );
                         }}
-                        onKeyPress={event => {
-                            this.handleTabClick( tabData, event );
+                        onKeyPress={( event ) => {
+                            this.handleTabClick( tabId, event );
                         }}
                     >
                         <Row
@@ -135,8 +127,8 @@ export class TabBar extends Component<TabBarProps> {
                                     type="close"
                                     title={I18n.t( 'close-tab' )}
                                     aria-label={I18n.t( 'aria.close-tab' )}
-                                    onClick={event => {
-                                        this.handleTabClose( tabData, event );
+                                    onClick={( event ) => {
+                                        this.handleTabClose( tabId, event );
                                     }}
                                 />
                             </Col>
