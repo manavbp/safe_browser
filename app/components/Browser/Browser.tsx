@@ -109,7 +109,7 @@ class Browser extends Component<BrowserProps, BrowserState> {
         handleNotifications( prevProps, currentProps );
     };
 
-    handleCloseBrowserTab = ( tab ) => {
+    handleCloseBrowserTab = tab => {
         const { windows, windowCloseTab } = this.props;
         const { windowId } = this.state;
         const openTabs = windows.openWindows[windowId].tabs;
@@ -120,7 +120,7 @@ class Browser extends Component<BrowserProps, BrowserState> {
         }
     };
 
-    handleAddTabEnd = ( tab ) => {
+    handleAddTabEnd = tab => {
         const { addTabEnd, addTab, setActiveTab } = this.props;
         const { windowId } = this.state;
         const { url, tabId } = tab;
@@ -129,7 +129,7 @@ class Browser extends Component<BrowserProps, BrowserState> {
         setActiveTab( { windowId, tabId } );
     };
 
-    handleAddTabNext = ( tab ) => {
+    handleAddTabNext = tab => {
         const { addTab, addTabEnd, setActiveTab } = this.props;
         const { windowId } = this.state;
         const { tabId, url, tabIndex } = tab;
@@ -183,7 +183,7 @@ class Browser extends Component<BrowserProps, BrowserState> {
         if ( windows.openWindows[windowId] !== undefined ) {
             const windowsTabs = windows.openWindows[windowId].tabs;
             const openTabs = [];
-            windowsTabs.forEach( ( element ) => {
+            windowsTabs.forEach( element => {
                 openTabs.push( tabs[element] );
             } );
             const activeTabId = windows.openWindows[windowId].activeTab;
@@ -194,7 +194,7 @@ class Browser extends Component<BrowserProps, BrowserState> {
             }
             const activeTabAddress = activeTab.url;
             const isBookmarked = !!bookmarks.find(
-                ( bookmark ) => bookmark.url === activeTabAddress
+                bookmark => bookmark.url === activeTabAddress
             );
             const isSelected = tabs[activeTabId].ui.addressBarIsSelected;
             const { shouldFocusWebview } = tabs[activeTabId].ui.shouldFocusWebview;
@@ -238,7 +238,7 @@ class Browser extends Component<BrowserProps, BrowserState> {
                         updateTab={updateTab}
                         windowId={windowId}
                         focusWebview={focusWebview}
-                        ref={( c ) => {
+                        ref={c => {
                             this.address = c;
                         }}
                     />
@@ -260,7 +260,7 @@ class Browser extends Component<BrowserProps, BrowserState> {
                         bookmarks={bookmarks}
                         windowId={windowId}
                         safeExperimentsEnabled={experimentsEnabled}
-                        ref={( c ) => {
+                        ref={c => {
                             this.tabContents = c;
                         }}
                     />

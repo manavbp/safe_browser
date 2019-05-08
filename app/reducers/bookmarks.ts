@@ -31,7 +31,7 @@ const addBookmark = ( state, bookmark ) => {
  */
 const removeBookmark = ( state, payload ) => {
     const removalIndex = state.findIndex(
-        ( bookmark ) => bookmark.url === payload.url
+        bookmark => bookmark.url === payload.url
     );
     const updatedState = [...state];
 

@@ -36,7 +36,7 @@ export const attemptReconnect = ( passedStore, appObj ) => {
 /**
  * Reconnect the application with SAFE Network when disconnected
  */
-export const reconnect = ( app ) => {
+export const reconnect = app => {
     if ( !app ) {
         return Promise.reject( new Error( 'Application not initialised' ) );
     }
@@ -48,7 +48,7 @@ export const reconnect = ( app ) => {
  * (ClientType === 'WEB' )
  * @param  {Object} request request object from ipc.js
  */
-export const replyToRemoteCallFromAuth = ( request ) => {
+export const replyToRemoteCallFromAuth = request => {
     logger.info( 'Replying to RemoteCall From Auth' );
     const store = getCurrentStore();
     const state = store.getState();

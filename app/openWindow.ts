@@ -162,7 +162,7 @@ ipcMain.on( 'command:close-window', () => {
 } );
 
 ipcMain.on( 'resetStore', ( event, data ) => {
-    data.forEach( ( element ) => {
+    data.forEach( element => {
         const winId = parseInt( element );
         const win = BrowserWindow.fromId( winId );
         win.close();

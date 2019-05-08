@@ -1,27 +1,26 @@
-/* eslint-disable */
 import { logger } from '$Logger';
 import { setAuthLibStatus } from '$Extensions/safe/actions/authenticator_actions';
 import * as safeBrowserAppActions from '$Extensions/safe/actions/safeBrowserApplication_actions';
 import {
-  initSafeBrowserApp,
-  handleSafeBrowserStoreChanges
+    initSafeBrowserApp,
+    handleSafeBrowserStoreChanges
 } from '$Extensions/safe/safeBrowserApplication';
 import { getLibStatus } from '$Extensions/safe/auth-api/authFuncs';
 import { setSafeBgProcessStore } from '$Extensions/safe/ffi/ipc';
 
 import {
-  startedRunningMock,
-  isRunningSpectronTestProcess,
-  APP_INFO,
-  PROTOCOLS
+    startedRunningMock,
+    isRunningSpectronTestProcess,
+    APP_INFO,
+    PROTOCOLS
 } from '$Constants';
 import sysUri from '$Extensions/safe/ffi/sys_uri';
 
 import { safeReducers } from '$Extensions/safe/reducers';
 import webviewPreload from '$Extensions/safe/webviewPreload';
 import {
-  handleRemoteCalls,
-  remoteCallApis
+    handleRemoteCalls,
+    remoteCallApis
 } from '$Extensions/safe/handleRemoteCalls';
 
 import { addFileMenus } from '$Extensions/safe/menus';
@@ -33,30 +32,30 @@ import { registerSafeProtocol } from './protocols/safe';
 import { setupRoutes } from './server-routes';
 import * as ffiLoader from './auth-api/ffiLoader';
 
-const onWebviewPreload = (store) => webviewPreload(store);
+const onWebviewPreload = store => webviewPreload( store );
 
 /**
  * Adds menu items to the main peruse menus.
  * @param  {Object} store redux store
  * @param {Array} menusArray Array of menu objects to be parsed by electron.
  */
-const addExtensionMenuItems = (store, menusArray) => {
-  logger.info('Adding SAFE menus to browser');
+const addExtensionMenuItems = ( store, menusArray ) => {
+    logger.info( 'Adding SAFE menus to browser' );
 
-  const newMenuArray = [];
+    const newMenuArray = [];
 
-  menusArray.forEach((menu) => {
-    const { label } = menu;
-    let newMenu = menu;
+    menusArray.forEach( menu => {
+        const { label } = menu;
+        let newMenu = menu;
 
-    if (label.includes('File')) {
-      newMenu = addFileMenus(store, newMenu);
-    }
+        if ( label.includes( 'File' ) ) {
+            newMenu = addFileMenus( store, newMenu );
+        }
 
-    newMenuArray.push(newMenu);
-  });
+        newMenuArray.push( newMenu );
+    } );
 
-  return newMenuArray;
+    return newMenuArray;
 };
 
 const addReducersToPeruse = () => safeReducers;
@@ -67,8 +66,8 @@ const addReducersToPeruse = () => safeReducers;
  * @param  {Object} allAPICalls object containing all api calls available in main (for use via store remoteCalls)
  * @param  {[type]} theCall     call object with id, and info
  */
-const onRemoteCallInBgProcess = (store, allAPICalls, theCall) =>
-  handleRemoteCalls(store, allAPICalls, theCall);
+const onRemoteCallInBgProcess = ( store, allAPICalls, theCall ) =>
+    handleRemoteCalls( store, allAPICalls, theCall );
 
 const getRemoteCallApis = () => remoteCallApis;
 
@@ -77,51 +76,51 @@ const getRemoteCallApis = () => remoteCallApis;
  * @type {Object}
  */
 const actionsForBrowser = {
-  ...safeBrowserAppActions
+    ...safeBrowserAppActions
 };
 
-const onInitBgProcess = async (store) => {
-  logger.info('Registering SAFE Network Protocols');
-  try {
-    setSafeBgProcessStore(store);
-    // theSafeBgProcessStore = store;
+const onInitBgProcess = async store => {
+    logger.info( 'Registering SAFE Network Protocols' );
+    try {
+        setSafeBgProcessStore( store );
+        // theSafeBgProcessStore = store;
 
-    registerSafeProtocol(store);
-    registerSafeAuthProtocol(store);
-    blockNonSAFERequests();
-  } catch (e) {
-    logger.error('Load extensions error: ', e);
-  }
-
-  // load the auth/safe libs
-  const theLibs = await ffiLoader.loadLibrary(startedRunningMock);
-
-  let previousAuthLibraryStatus;
-
-  store.subscribe(() => {
-    const authLibraryStatus = getLibStatus();
-
-    if (authLibraryStatus && authLibraryStatus !== previousAuthLibraryStatus) {
-      logger.info('Authenticator lib status: ', authLibraryStatus);
-      previousAuthLibraryStatus = authLibraryStatus;
-      store.dispatch(setAuthLibStatus(authLibraryStatus));
-
-      initSafeBrowserApp(store);
+        registerSafeProtocol( store );
+        registerSafeAuthProtocol( store );
+        blockNonSAFERequests();
+    } catch ( e ) {
+        logger.error( 'Load extensions error: ', e );
     }
 
-    handleSafeBrowserStoreChanges(store);
-  });
+    // load the auth/safe libs
+    const theLibs = await ffiLoader.loadLibrary( startedRunningMock );
 
-  const mainAppInfo = APP_INFO.info;
-  const authAppInfo = {
-    ...mainAppInfo,
-    id: 'net.maidsafe.app.browser.authenticator',
-    name: 'SAFE Browser Authenticator',
-    icon: 'iconPath'
-  };
+    let previousAuthLibraryStatus;
 
-  logger.info('Auth application info', authAppInfo);
-  sysUri.registerUriScheme(authAppInfo, PROTOCOLS.SAFE_AUTH);
+    store.subscribe( () => {
+        const authLibraryStatus = getLibStatus();
+
+        if ( authLibraryStatus && authLibraryStatus !== previousAuthLibraryStatus ) {
+            logger.info( 'Authenticator lib status: ', authLibraryStatus );
+            previousAuthLibraryStatus = authLibraryStatus;
+            store.dispatch( setAuthLibStatus( authLibraryStatus ) );
+
+            initSafeBrowserApp( store );
+        }
+
+        handleSafeBrowserStoreChanges( store );
+    } );
+
+    const mainAppInfo = APP_INFO.info;
+    const authAppInfo = {
+        ...mainAppInfo,
+        id: 'net.maidsafe.app.browser.authenticator',
+        name: 'SAFE Browser Authenticator',
+        icon: 'iconPath'
+    };
+
+    logger.info( 'Auth application info', authAppInfo );
+    sysUri.registerUriScheme( authAppInfo, PROTOCOLS.SAFE_AUTH );
 };
 
 /**
@@ -129,36 +128,36 @@ const onInitBgProcess = async (store) => {
  * on open of peruse application
  * @param  {Object} store redux store
  */
-const onOpen = (store) =>
-  new Promise((resolve, reject) => {
-    logger.info('OnOpen: Setting mock in store. ', startedRunningMock);
-    store.dispatch(safeBrowserAppActions.setIsMock(startedRunningMock));
+const onOpen = store =>
+    new Promise( ( resolve, reject ) => {
+        logger.info( 'OnOpen: Setting mock in store. ', startedRunningMock );
+        store.dispatch( safeBrowserAppActions.setIsMock( startedRunningMock ) );
 
-    resolve();
-  });
+        resolve();
+    } );
 
 /**
  * Add middleware to Peruse redux store
  * @param  {Object} store redux store
  */
-const middleware = (store) => (next) => (action) => {
-  if (isRunningSpectronTestProcess) {
-    logger.info('ACTION:', action);
-  }
+const middleware = store => next => action => {
+    if ( isRunningSpectronTestProcess ) {
+        logger.info( 'ACTION:', action );
+    }
 
-  return next(action);
+    return next( action );
 };
 
 export default {
-  addExtensionMenuItems,
-  getRemoteCallApis,
-  actionsForBrowser,
-  addReducersToPeruse,
-  onInitBgProcess,
-  onRemoteCallInBgProcess,
-  onOpen,
-  onWebviewPreload,
-  setupRoutes,
-  middleware,
-  urlIsValid
+    addExtensionMenuItems,
+    getRemoteCallApis,
+    actionsForBrowser,
+    addReducersToPeruse,
+    onInitBgProcess,
+    onRemoteCallInBgProcess,
+    onOpen,
+    onWebviewPreload,
+    setupRoutes,
+    middleware,
+    urlIsValid
 };

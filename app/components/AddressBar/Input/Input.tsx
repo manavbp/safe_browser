@@ -85,7 +85,7 @@ AddressBarInputState
         }
     }
 
-    handleFocus = ( event ) => {
+    handleFocus = event => {
         const { onFocus, tabId } = this.props;
         onFocus( { tabId } );
         event.target.select();
@@ -129,7 +129,7 @@ AddressBarInputState
                 size="large"
                 value={address}
                 type="text"
-                ref={( input ) => {
+                ref={input => {
                     this.addressInput = input;
                     if (
                         isSelected &&

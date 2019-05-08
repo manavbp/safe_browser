@@ -9,7 +9,7 @@ const findCallIndexById = ( theState, theCall ) => {
         logger.error( 'Remote calls cannot be removed without an ID property' );
     }
 
-    return theState.findIndex( ( c ) => c.id === theCall.id );
+    return theState.findIndex( c => c.id === theCall.id );
 };
 
 export function remoteCalls( state: Array = initialState, action ) {

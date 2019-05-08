@@ -100,10 +100,10 @@ export class TabBar extends Component<TabBarProps> {
                         role="tab"
                         key={tab.index}
                         className={`${tabStyleClass} ${CLASSES.TAB}`}
-                        onClick={( event ) => {
+                        onClick={event => {
                             this.handleTabClick( tabData, event );
                         }}
-                        onKeyPress={( event ) => {
+                        onKeyPress={event => {
                             this.handleTabClick( tabData, event );
                         }}
                     >
@@ -135,7 +135,7 @@ export class TabBar extends Component<TabBarProps> {
                                     type="close"
                                     title={I18n.t( 'close-tab' )}
                                     aria-label={I18n.t( 'aria.close-tab' )}
-                                    onClick={( event ) => {
+                                    onClick={event => {
                                         this.handleTabClose( tabData, event );
                                     }}
                                 />

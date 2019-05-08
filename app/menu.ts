@@ -152,7 +152,7 @@ export class MenuBuilder {
                             const state = store.getState();
                             let index;
                             const openTabs = state.tabs.filter(
-                                ( tab ) => !tab.isClosed && tab.windowId === windowId
+                                tab => !tab.isClosed && tab.windowId === windowId
                             );
                             openTabs.forEach( ( tab, i ) => {
                                 if ( tab.isActiveTab ) {
@@ -178,7 +178,7 @@ export class MenuBuilder {
                             const state = store.getState();
                             let index;
                             const openTabs = state.tabs.filter(
-                                ( tab ) => !tab.isClosed && tab.windowId === windowId
+                                tab => !tab.isClosed && tab.windowId === windowId
                             );
                             openTabs.forEach( ( tab, i ) => {
                                 if ( tab.isActiveTab ) {
@@ -472,7 +472,7 @@ export class MenuBuilder {
                             const windowState = state.windows.openWindows;
                             const windows = Object.keys( windowState );
                             const windowsToBeClosed = windows.filter(
-                                ( Id ) => parseInt( Id, 10 ) !== windowId
+                                Id => parseInt( Id, 10 ) !== windowId
                             );
                             ipcRenderer.send( 'resetStore', windowsToBeClosed );
                             logger.verbose( 'Triggering store reset from window:', windowId );

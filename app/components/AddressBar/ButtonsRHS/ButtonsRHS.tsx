@@ -72,7 +72,7 @@ class ButtonsRHS extends Component<ButtonsRHSProps, {}> {
                                 ? I18n.t( 'aria.is_bookmarked' )
                                 : I18n.t( 'aria.not_bookmarked' )
                         }
-                        onKeyDown={( e ) => {
+                        onKeyDown={e => {
                             if ( e.keyCode === 13 ) {
                                 this.handleBookmarking();
                             }

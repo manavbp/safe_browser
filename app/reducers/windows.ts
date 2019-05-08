@@ -85,12 +85,12 @@ const closetab = ( state, tab ) => {
     const openWindows = { ...state.openWindows };
     const closedWindows = { ...state.closedWindows };
     const { tabId } = tab;
-    const lasttabIndex = openWindows[targetWindow].tabs.findIndex( ( tab ) => {
+    const lasttabIndex = openWindows[targetWindow].tabs.findIndex( tab => {
         return tab === tabId;
     } );
     const tabsIndexLength = openWindows[targetWindow].tabs.length - 1;
     const newOpenTabs = openWindows[targetWindow].tabs.filter(
-        ( tab ) => tab !== tabId
+        tab => tab !== tabId
     );
     const newActiveTab =
     tabsIndexLength === lasttabIndex
@@ -146,7 +146,7 @@ const closeWindow = ( state, tab ) => {
         lastActiveTabs: newTabs
     };
     const filtered = Object.keys( openWindows )
-        .filter( ( key ) => key !== targetwindow.toString() )
+        .filter( key => key !== targetwindow.toString() )
         .reduce( ( res, key ) => ( ( res[key] = openWindows[key] ), res ), {} );
     const newClosedWindows = {
         ...state.closedWindows,

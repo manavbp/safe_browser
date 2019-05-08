@@ -22,7 +22,7 @@ let isReading = false;
 let isSaving = false;
 
 function delay( t ) {
-    return new Promise( ( resolve ) => {
+    return new Promise( resolve => {
         setTimeout( resolve, t );
     } );
 }
@@ -128,7 +128,7 @@ export const saveConfigToSafe = ( store, quit ) => {
  * Read the configuration from the netowrk
  * @param  {[type]} app SafeApp reference, with handle and authUri
  */
-export const readConfigFromSafe = ( store ) =>
+export const readConfigFromSafe = store =>
     new Promise( async ( resolve, reject ) => {
         const safeBrowserAppObject = getSafeBrowserAppObject();
         if ( !safeBrowserAppObject ) {
@@ -182,7 +182,7 @@ export const readConfigFromSafe = ( store ) =>
  * based upon the application stateToSave
  * @param  {Object} state Application state (from redux)
  */
-export const manageReadStateActions = async ( store ) => {
+export const manageReadStateActions = async store => {
     // Hack as store is actually unreliable.
     // TODO: Rework this to use aliased funcs.
     if ( isReading ) {
@@ -220,7 +220,7 @@ export const manageReadStateActions = async ( store ) => {
     );
 
     readConfigFromSafe( store )
-        .then( ( savedState ) => {
+        .then( savedState => {
             // store.dispatch( safeBrowserAppActions.receivedConfig( savedState ) );
             store.dispatch( bookmarksActions.updateBookmarks( savedState ) );
             store.dispatch( WindowsActions.windowCloseTab( savedState ) );
@@ -233,7 +233,7 @@ export const manageReadStateActions = async ( store ) => {
             isReading = false;
             return null;
         } )
-        .catch( ( e ) => {
+        .catch( e => {
             isReading = false;
             logger.error( e );
             store.dispatch(
@@ -250,7 +250,7 @@ export const manageReadStateActions = async ( store ) => {
  * based upon the application stateToSave
  * @param  {Object} state Application state (from redux)
  */
-export const manageSaveStateActions = async ( store ) => {
+export const manageSaveStateActions = async store => {
     // Hack as store is actually unreliable.
     // TODO: Rework this to use aliased funcs.
     if ( isSaving ) {
@@ -313,7 +313,7 @@ export const manageSaveStateActions = async ( store ) => {
 
             return null;
         } )
-        .catch( ( e ) => {
+        .catch( e => {
             isSaving = false;
             logger.error( e );
 

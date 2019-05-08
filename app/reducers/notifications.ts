@@ -8,7 +8,7 @@ const findNotificationIndexById = ( theState, theCall ) => {
         logger.error( 'Noticications cannot be removed without an ID property' );
     }
 
-    return theState.findIndex( ( c ) => c.id === theCall.id );
+    return theState.findIndex( c => c.id === theCall.id );
 };
 
 export const notifications = ( state: Array = initialState, action ) => {
@@ -38,7 +38,7 @@ export const notifications = ( state: Array = initialState, action ) => {
             const updatedState = [...state];
             if ( notification && notification.id ) {
                 const newArray = updatedState.filter(
-                    ( elem ) => elem.id !== notification.id
+                    elem => elem.id !== notification.id
                 );
                 return [...newArray];
             }

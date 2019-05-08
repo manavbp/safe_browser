@@ -9,7 +9,7 @@ const favicon = isRunningUnpacked
     : '../favicon.ico';
 
 jest.mock( 'utils/urlHelpers', () => ( {
-    makeValidAddressBarUrl: jest.fn( ( uri ) => uri )
+    makeValidAddressBarUrl: jest.fn( uri => uri )
 } ) );
 
 const tabId = Math.random().toString( 36 );

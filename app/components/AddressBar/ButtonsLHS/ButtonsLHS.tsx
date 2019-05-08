@@ -13,7 +13,7 @@ import { parse } from 'url';
  * Left hand side buttons for the Address Bar
  * @extends Component
  */
-const ButtonsLHS = ( props ) => {
+const ButtonsLHS = props => {
     const {
         activeTab,
         handleBack,
