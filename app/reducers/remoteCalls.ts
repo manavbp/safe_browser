@@ -1,6 +1,6 @@
 import { logger } from '$Logger';
 import { TYPES } from '$Actions/remoteCall_actions';
-import { initialState as initialAppState } from './initialAppState';
+import { initialAppState } from './initialAppState';
 
 const initialState = initialAppState.remoteCalls;
 
@@ -9,7 +9,7 @@ const findCallIndexById = ( theState, theCall ) => {
         logger.error( 'Remote calls cannot be removed without an ID property' );
     }
 
-    return theState.findIndex( c => c.id === theCall.id );
+    return theState.findIndex( ( c ) => c.id === theCall.id );
 };
 
 export function remoteCalls( state: Array = initialState, action ) {

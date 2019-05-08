@@ -1,6 +1,6 @@
 import { logger } from '$Logger';
 import { TYPES } from '$Actions/notification_actions';
-import { initialState as initialAppState } from './initialAppState';
+import { initialAppState } from './initialAppState';
 
 const initialState = initialAppState.notifications;
 const findNotificationIndexById = ( theState, theCall ) => {
@@ -8,9 +8,10 @@ const findNotificationIndexById = ( theState, theCall ) => {
         logger.error( 'Noticications cannot be removed without an ID property' );
     }
 
-    return theState.findIndex( c => c.id === theCall.id );
+    return theState.findIndex( ( c ) => c.id === theCall.id );
 };
-export function notifications( state: Array = initialState, action ) {
+
+export const notifications = ( state: Array = initialState, action ) => {
     const notification = action.payload;
 
     switch ( action.type ) {
@@ -37,7 +38,7 @@ export function notifications( state: Array = initialState, action ) {
             const updatedState = [...state];
             if ( notification && notification.id ) {
                 const newArray = updatedState.filter(
-                    elem => elem.id !== notification.id
+                    ( elem ) => elem.id !== notification.id
                 );
                 return [...newArray];
             }
@@ -48,4 +49,4 @@ export function notifications( state: Array = initialState, action ) {
         default:
             return state;
     }
-}
+};

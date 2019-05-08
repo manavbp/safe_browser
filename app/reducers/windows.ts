@@ -1,8 +1,7 @@
-/* eslint-disable */
 import { TYPES } from '$Actions/windows_actions';
 import { logger } from '$Logger';
 import { TYPES as TAB_TYPES } from '$Actions/tabs_actions';
-import initialAppState from './initialAppState';
+import { initialAppState } from './initialAppState';
 
 const initialState = initialAppState.windows;
 
@@ -210,7 +209,7 @@ const resetStore = (state, payload) => {
   return newState;
 };
 
-export default function tabs(state: object = initialState, action) {
+export const windows = (state: object = initialState, action) => {
   const payload = action.payload;
 
   if (action.error) {
@@ -252,4 +251,4 @@ export default function tabs(state: object = initialState, action) {
     default:
       return state;
   }
-}
+};

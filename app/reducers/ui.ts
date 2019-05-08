@@ -1,5 +1,5 @@
 import { TYPES } from '$Actions/ui_actions';
-import { initialState as initialAppState } from './initialAppState';
+import { initialAppState } from './initialAppState';
 
 const initialState = initialAppState.ui;
 
@@ -15,12 +15,12 @@ function toggleMenu( state, payload, showMenu ) {
     const targetWindowId = payload.windowId;
     const getCurrentWindowState = state.windows;
     const windowState = [...getCurrentWindowState];
-    const found = windowState.find( obj => obj.windowId === targetWindowId );
+    const found = windowState.find( ( obj ) => obj.windowId === targetWindowId );
     if ( !found ) {
         return state;
     }
     const updatedWindowIndex = windowState.findIndex(
-        obj => obj.windowId === targetWindowId
+        ( obj ) => obj.windowId === targetWindowId
     );
     const updatedWindow = { ...found };
     if ( showMenu === true ) {
@@ -49,7 +49,7 @@ const removeWindowUI = ( state, payload ) => {
     const getCurrentWindowState = state.windows;
     const windowState = [...getCurrentWindowState];
     const UpdatedwindowState = windowState.filter(
-        obj => obj.windowId !== targetWindowId
+        ( obj ) => obj.windowId !== targetWindowId
     );
     const newState = { ...state, windows: UpdatedwindowState };
     return newState;
