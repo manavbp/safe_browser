@@ -52,6 +52,9 @@ class Browser extends Component<BrowserProps, BrowserState> {
     constructor( props ) {
         super( props );
         this.state = {};
+
+        console.log('browser constructed-----');
+        this.openTabs = [];
         const getCurrentWindowId = remote ? remote.getCurrentWindow().id : 1;
         // this is mounted but its not show?
         this.state.windowId = getCurrentWindowId;
@@ -107,8 +110,8 @@ class Browser extends Component<BrowserProps, BrowserState> {
     handleCloseBrowserTab = ( tab ) => {
         const { windows, windowCloseTab } = this.props;
         const { windowId } = this.state;
-        const openTabs = windows.openWindows[windowId].tabs;
-        if ( openTabs.length === 1 ) {
+        const openTabIds = windows.openWindows[windowId].tabs;
+        if ( openTabIds.length === 1 ) {
             ipcRenderer.send( 'command:close-window' );
         } else {
             windowCloseTab( tab );
@@ -177,10 +180,16 @@ class Browser extends Component<BrowserProps, BrowserState> {
         // TODO: Move windowId from state to store.
         if ( windows.openWindows[windowId] !== undefined ) {
             const windowsTabs = windows.openWindows[windowId].tabs;
-            const openTabs = [];
-            windowsTabs.forEach( ( element ) => {
-                openTabs.push( tabs[element] );
+
+            const newOpenTabs = [];
+            windowsTabs.forEach( ( tabId ) => {
+                newOpenTabs.push( tabs[tabId] );
             } );
+
+            if( !isEqual( newOpenTabs, this.openTabs ) )
+            {
+                this.openTabs = newOpenTabs;
+            }
             const activeTabId = windows.openWindows[windowId].activeTab;
             const activeTab =
         activeTabId !== undefined ? tabs[activeTabId] : undefined;
@@ -206,7 +215,7 @@ class Browser extends Component<BrowserProps, BrowserState> {
                         addTabNext={this.handleAddTabNext}
                         addTabEnd={this.handleAddTabEnd}
                         closeTab={this.handleCloseBrowserTab}
-                        tabs={openTabs}
+                        tabs={this.openTabs}
                         windows={windows}
                         windowId={windowId}
                     />
@@ -250,7 +259,7 @@ class Browser extends Component<BrowserProps, BrowserState> {
                         activeTab={activeTab}
                         updateTab={updateTab}
                         setActiveTab={setActiveTab}
-                        tabs={openTabs}
+                        tabs={this.openTabs}
                         allTabs={tabs}
                         bookmarks={bookmarks}
                         windowId={windowId}
