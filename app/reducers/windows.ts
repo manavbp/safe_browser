@@ -23,7 +23,7 @@ const addWindow = ( state, tab ) => {
         closedWindows: {
             ...closedWindows,
             [targetWindow]: {
-                closedtabs: [],
+                closedTabs: [],
                 lastActiveTabs: []
             }
         }
@@ -125,7 +125,7 @@ const closetab = ( state, tab ) => {
         lastTabIndex
     };
 
-    closedWindows[targetWindow].closedtabs.push( closedTabObj );
+    closedWindows[targetWindow].closedTabs.push( closedTabObj );
 
     const newState = {
         ...state,
@@ -139,29 +139,31 @@ const reOpenTab = ( state, tabs ) => {
     const targetWindowId = tabs.windowId;
 
     const newOpenWindows = { ...state.openWindows };
+
     const closedWindows = { ...state.closedWindows };
 
-    const closedWindowTabs = closedWindows[targetWindowId].closedtabs;
+    const newWindow = { ...newOpenWindows[targetWindowId] };
+
+    newWindow.tabs = [ ...newWindow.tabs ];
+
+    const closedWindowTabs = [ ...closedWindows[targetWindowId].closedTabs ];
 
     closedWindows[targetWindowId] = {
         ...closedWindows[targetWindowId],
         closedTabs: closedWindowTabs
     };
 
-    const lastTabObj = closedWindowTabs.pop();
+    const lastTabObj = closedWindowTabs[ closedWindowTabs.length - 1 ];
+
+    closedWindowTabs.pop();
 
     const { tabId, lastTabIndex } = lastTabObj;
 
-    const newTabs = newOpenWindows[targetWindowId].tabs.splice(
+    newWindow.tabs.splice(
         lastTabIndex,
         0,
         tabId
     );
-
-    const newWindow = {
-        ...newOpenWindows[targetWindowId],
-        tabs: newTabs
-    };
 
     newOpenWindows[targetWindowId] = newWindow;
 
@@ -180,7 +182,7 @@ const closeWindow = ( state, tab ) => {
     const newOpenWindows = { ...state.openWindows };
     const newClosedWindows = { ...state.closedWindows };
 
-    const newTabs = [...state.newOpenWindows[targetwindow].tabs];
+    const newTabs = [...state.openWindows[targetwindow].tabs];
     const newCloseWindow = {
         ...newClosedWindows[targetwindow],
         lastActiveTabs: newTabs
@@ -241,7 +243,7 @@ const resetStore = ( state, payload ) => {
         },
         closedWindows: {
             [targetWindow]: {
-                closedtabs: [],
+                closedTabs: [],
                 lastActiveTabs: []
             }
         }

@@ -84,20 +84,20 @@ class Browser extends Component<BrowserProps, BrowserState> {
         body.append( div );
     }
 
-    shouldComponentUpdate = ( nextProps: BrowserProps ) => {
-    // Have to check this about pafge rendering
-        const { windows, tabs, Bookmarks } = nextProps;
-        const { windowId } = this.state;
-        const currentTabs = this.props.tabs;
-        // const currentBookmarks = this.props.bookmarks;
-        const newWindow = windows.openWindows[windowId] || {};
-        const currentWindow = this.props.windows.openWindows[windowId] || {};
-
-        // TODO: compare the actual tab contents.......????
-        console.log( 'new window', newWindow );
-        console.log( 'currentWindow', currentWindow );
-        return !isEqual( currentWindow, newWindow );
-    };
+    // shouldComponentUpdate = ( nextProps: BrowserProps ) => {
+    // // Have to check this about pafge rendering
+    //     const { windows, tabs, Bookmarks } = nextProps;
+    //     const { windowId } = this.state;
+    //     const currentTabs = this.props.tabs;
+    //     // const currentBookmarks = this.props.bookmarks;
+    //     const newWindow = windows.openWindows[windowId] || {};
+    //     const currentWindow = this.props.windows.openWindows[windowId] || {};
+    //
+    //     // TODO: compare the actual tab contents.......????
+    //     console.log( 'new window', newWindow );
+    //     console.log( 'currentWindow', currentWindow );
+    //     return !isEqual( currentWindow, newWindow );
+    // };
 
     componentDidUpdate = ( prevProps: BrowserProps ) => {
         const currentProps = { ...this.props };
