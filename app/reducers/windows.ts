@@ -2,6 +2,7 @@ import { TYPES } from '$Actions/windows_actions';
 import { logger } from '$Logger';
 import { TYPES as TAB_TYPES } from '$Actions/tabs_actions';
 import { initialAppState } from './initialAppState';
+import { cloneDeep } from 'lodash';
 
 const initialState = initialAppState.windows;
 
@@ -97,7 +98,7 @@ const closetab = ( state, tab ) => {
     const { tabId } = tab;
 
     const openWindows = { ...state.openWindows };
-    const closedWindows = { ...state.closedWindows };
+    const closedWindows = cloneDeep(state.closedWindows);
 
     const lastTabIndex = openWindows[targetWindow].tabs.findIndex( ( tab ) => {
         return tab === tabId;
