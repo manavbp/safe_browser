@@ -118,7 +118,7 @@ export class TabContents extends Component<{}, {}> {
                     focusWebview={focusWebview}
                     shouldFocusWebview={shouldFocusWebview}
                     tabBackwards={tabBackwards}
-                    shouldReload={tab.shouldReload}
+                    shouldReload={tab.ui.shouldReload}
                     shouldToggleDevTools={tab.ui.shouldToggleDevTools}
                     ref={c => {
                         if ( isActiveTab ) {
