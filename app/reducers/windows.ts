@@ -200,33 +200,35 @@ const closeWindow = ( state, tab ) => {
 
 function toggleMenu( state, payload, showMenu ) {
     const targetWindow = payload.windowId;
-    const openWindows = { ...state.openWindows };
+
+    const newOpenWindows = { ...state.openWindows };
     const newWindow = {
-        ...openWindows[targetWindow],
+        ...newOpenWindows[targetWindow],
         ui: {
             settingsMenuIsVisible: showMenu
         }
     };
-    const newOpenWindows = { ...state.openWindows, [targetWindow]: newWindow };
+
+    newOpenWindows[targetWindow] = newWindow;
+
     const newState = { ...state, openWindows: newOpenWindows };
     return newState;
 }
 
 const showSettingsMenu = ( state, payload ) => {
     const showMenu = true;
-    const newState = toggleMenu( state, payload, showMenu );
-    return newState;
+    return toggleMenu( state, payload, showMenu );
 };
 
 const hideSettingsMenu = ( state, payload ) => {
     const showMenu = false;
-    const newState = toggleMenu( state, payload, showMenu );
-    return newState;
+    return toggleMenu( state, payload, showMenu );
 };
 
 const resetStore = ( state, payload ) => {
     const targetWindow = payload.windowId;
     const { tabId } = payload;
+
     const newState = {
         openWindows: {
             [targetWindow]: {
