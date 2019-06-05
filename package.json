@@ -196,7 +196,7 @@
     },
       "publish": {
       "provider": "github",
-      "owner": "joshuef",
+      "owner": "manavbp",
       "repo": "safe_browser"
     }
   },
