@@ -31,8 +31,9 @@
     "post-pack": "node ./post-pack.js",
     "package-all": "yarn build && electron-builder build -mwl",
     "package-ci": "yarn postinstall && yarn build && electron-builder --publish always",
-    "package-linux": "yarn build && electron-builder build --linux",
-    "package-win": "yarn build && electron-builder build --win --x64",
+    "package-macos": "yarn build && electron-builder --publish always",
+    "package-linux": "yarn build && electron-builder build --linux --publish always",
+    "package-win": "yarn build && electron-builder build --win --x64 --publish always",
     "put-live-net-files-for-osx": "cp ./resources/crust.config node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron\\ Helper.app/Contents/MacOS/Electron\\ Helper.crust.config && cp resources/log.toml ./node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron\\ Helper.app/Contents/log.toml",
     "put-live-net-files-for-linux": "cp ./resources/crust.config node_modules/electron/dist/electron.crust.config && cp resources/log.toml node_modules/electron/dist/log.toml",
     "put-live-net-files-for-windows": "powershell.exe cp ./resources/crust.config node_modules/electron/dist/electron.crust.config; if ($?) { cp resources/log.toml node_modules/electron/dist/log.toml}",
@@ -138,6 +139,20 @@
         "to": "nessie-styles.css"
       }
     ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
     "protocols": {
       "name": "SAFE Network URL",
       "schemes": [
@@ -146,17 +161,43 @@
       ]
     },
     "win": {
-      "target": "dir"
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "extraFiles": [
+        {
+          "from": "resources/crust.config",
+          "to": "${productName}.crust.config"
+        }
+      ]
     },
     "linux": {
-      "target": "dir"
+      "target": [
+        "AppImage",
+        "zip"
+      ],
+      "category": "Development",
+      "extraFiles": [
+        {
+          "from": "resources/crust.config",
+          "to": "${name}.crust.config"
+        }
+      ]
     },
-    "mac": {
-      "target": "dir"
-    },
+    "target": [
+       "dmg",
+       "pkg",
+       "zip"
+   ],
     "directories": {
       "buildResources": "resources",
       "output": "release"
+    },
+      "publish": {
+      "provider": "github",
+      "owner": "joshuef",
+      "repo": "safe_browser"
     }
   },
   "repository": {
