@@ -130,7 +130,7 @@ class Browser extends Component<BrowserProps, {}> {
       currentWindow &&
       currentWindow.ui &&
       currentWindow.ui.settingsMenuIsVisible
-          ? currentWindow.settingsMenuIsVisible
+          ? currentWindow.ui.settingsMenuIsVisible
           : false;
 
         return {
