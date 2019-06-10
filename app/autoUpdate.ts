@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { autoUpdater } from 'electron-updater';
 import { logger } from '$Logger';
 import log from 'electron-log';
 import * as notificationActions from '$Actions/notification_actions';
+import { dialog } from 'electron';
 
 autoUpdater.autoDownload = false;
 
@@ -19,15 +19,12 @@ const clearNotification = ( payload: { id: string } ) =>
     - TO-DO: Display the error, upon hovering over Details
 */
 autoUpdater.on( 'error', ( error ) => {
-    const notificationId = Math.random().toString( 36 );
-    const title = 'Error in Update';
-    const theNotification = {
-        id: notificationId,
-        type: 'error',
-        title,
-        duration: 0
-    };
-    addNotification( theNotification );
+    dialog.showErrorBox(
+        'Error: ',
+        error == null ? 'unknown' : ( error.stack || error ).toString()
+    );
+    logger.error( 'error.stack', error.stack );
+    logger.error( 'error', error );
 } );
 
 // This is only there for testing to see the notification is not shown on dev
@@ -57,15 +54,12 @@ autoUpdater.on( 'update-available', () => {
     };
 
     const success = () => {
-        logger.info( 'success happeninng' );
-        logger.info( 'Downloading Update' );
-        // Commented out to see if the above console.log works
-        // autoUpdater.downloadUpdate()
+        autoUpdater.downloadUpdate();
         clearNotification( { id: notificationId } );
     };
 
     const denial = () => {
-        logger.info( 'deny happeninng' );
+        logger.info( 'Denied downloading update' );
         clearNotification( { id: notificationId } );
     };
 
@@ -114,20 +108,16 @@ autoUpdater.on( 'update-downloaded', () => {
     const message = 'Update ready to be Installed';
 
     const ignoreRequest = () => {
-        logger.info( 'replace these ipcRenderer.send calls' );
         clearNotification( { id: notificationId } );
     };
 
     const success = () => {
-        logger.info( 'success happeninng' );
-        logger.info( 'Download Update' );
-        // Commented out to see if the above console.log works
-        // autoUpdater.quitAndInstall())
         clearNotification( { id: notificationId } );
+        autoUpdater.quitAndInstall();
     };
 
     const denial = () => {
-        logger.info( 'deny happeninng' );
+        logger.info( 'Update denied' );
         clearNotification( { id: notificationId } );
     };
 

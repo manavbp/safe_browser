@@ -1,6 +1,6 @@
 import open from 'open';
 import { Store } from 'redux';
-import { app, Menu, ipcMain } from 'electron';
+import { app, Menu } from 'electron';
 import {
     addTab,
     tabForwards,
@@ -16,6 +16,7 @@ import { logger } from '$Logger';
 import pkg from '$Package';
 
 import { AppWindow } from '$App/definitions/globals.d';
+import { AppUpdater } from './autoUpdate';
 
 import { getExtensionMenuItems } from '$Extensions';
 
@@ -485,6 +486,14 @@ export class MenuBuilder {
                     label: 'Search Issues',
                     click() {
                         open( 'https://github.com/maidsafe/safe_browser/issues' );
+                    }
+                },
+                {
+                    label: 'Check for Updates...',
+                    click() {
+                        logger.info( 'Checking for updates' );
+                        // eslint-disable-next-line no-new
+                        new AppUpdater( store );
                     }
                 }
             ]

@@ -41,8 +41,6 @@ import {
     onAppReady
 } from '$Extensions/main-process-extensions';
 
-/* eslint-disable-next-line import/no-default-export */
-
 const initialState = {};
 const store = configureStore( initialState );
 
